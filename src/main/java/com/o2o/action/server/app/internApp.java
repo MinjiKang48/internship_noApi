@@ -53,16 +53,16 @@ public class internApp extends DialogflowApp {
 
 	@ForIntent("chosenActor")
 	public ActionResponse chosenActor(ActionRequest request) throws ExecutionException, InterruptedException {
-		ResponseBuilder rb = getResponseBuilder(request);
-		Map<String, Object> data = rb.getConversationData();
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
-		rb
+		responseBuilder
 				.add("어떤 배우의 작품을 보고싶으신가요?")
 				.addSuggestions(new String[]{"최우식", "정유미", "배수지", "박서준"});
 
-		return rb.build();
+		return responseBuilder.build();
 	}
 
 //	@ForIntent("chosenGenre")
@@ -95,8 +95,8 @@ public class internApp extends DialogflowApp {
 
 	@ForIntent("chosenActorDramaList")
 	public ActionResponse chosenActorDrama(ActionRequest request) throws ExecutionException, InterruptedException {
-		ResponseBuilder rb = getResponseBuilder(request);
-		Map<String, Object> data = rb.getConversationData();
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
@@ -130,9 +130,9 @@ public class internApp extends DialogflowApp {
 				.setDisplayText("원하는 드라마를 선택해주세요."); //글 표시
 
 //		rb.add(selectionList);
-		rb.add(simpleResponse);
+		responseBuilder.add(simpleResponse);
 
-		return rb.build();
+		return responseBuilder.build();
 	}
 
 //	@ForIntent("chosenGenreDrama")
@@ -223,39 +223,37 @@ public class internApp extends DialogflowApp {
 //		return rb.build();
 //	}
 
-	@ForIntent("detailedDrama")
+	@ForIntent("detailedDrama") //현재의 문제 : simpleResponse 말고 다른 response의 형태가 들어오면 실행 오류가 발생한다.
 	public ActionResponse detailedDrama(ActionRequest request) throws ExecutionException, InterruptedException {
-		ResponseBuilder rb = getResponseBuilder(request);
-		Map<String, Object> data = rb.getConversationData();
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
-//		BasicCard basicCard = new BasicCard();
 		SimpleResponse simpleResponse = new SimpleResponse();
+//        BasicCard basicCard = new BasicCard();
 
 		String drama = CommonUtil.makeSafeString(request.getParameter("drama"));
 
-//		basicCard
-//				.setTitle(drama)
-//				.setSubtitle("")
-//				.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/IweRIPTD-uu14KRMiYuyMihogoUY.jpg")
-//						.setAccessibilityText("인간수업 포스터"))
-//				.setFormattedText("돈을 벌기 위해 죄책감없이 범죄의 길을 선택한 고등학생들이 그로 인해 돌이킬 수 없이 혹독한 대가를 치르는 과정을 그린 넷플릭스 오리지널 시리즈");
+//        basicCard
+//                .setTitle(drama)
+//                .setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/인간수업포스터.jpg")
+//                        .setAccessibilityText("인간수업 포스터"));
 
 		simpleResponse
 				.setTextToSpeech("시청하시겠어요?")
 				.setDisplayText("시청하시겠어요?");
 
-//		rb.add(basicCard);
-		rb.add(simpleResponse);
+//		responseBuilder.add(basicCard);
+		responseBuilder.add(simpleResponse);
 
-		return rb.build();
+		return responseBuilder.build();
 	}
 
 	@ForIntent("watch")
 	public ActionResponse watch(ActionRequest request) throws ExecutionException, InterruptedException {
-		ResponseBuilder rb = getResponseBuilder(request);
-		Map<String, Object> data = rb.getConversationData();
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
@@ -264,23 +262,24 @@ public class internApp extends DialogflowApp {
 				.setTextToSpeech("넷플릭스를 연결할게요")
 				.setDisplayText("넷플릭스 연결");
 
-		rb.add(simpleResponse);
-		return rb.build();
+		responseBuilder.add(simpleResponse);
+		return responseBuilder.build();
 	}
 
 	@ForIntent("No Watch")
 	public ActionResponse noWatch(ActionRequest request) throws ExecutionException, InterruptedException {
-		ResponseBuilder rb = getResponseBuilder(request);
-		Map<String, Object> data = rb.getConversationData();
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
 		SimpleResponse simpleResponse = new SimpleResponse();
+
 		simpleResponse
 				.setDisplayText("다른 드라마를 선택해주세요.")
 				.setTextToSpeech("다른 드라마를 선택해주세요");
 
-		return rb.build();
+		return responseBuilder.build();
 	}
 }
 
