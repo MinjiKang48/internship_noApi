@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9d182719-722c-45ba-a85a-7244610919bd" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="test" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="test" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="test" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="66d513cd-745e-414b-8df7-701a213abae6" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1eOQ09qdrnw526c0nO5QeXUYJVk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\intern\Documents\aog_template\test\src\main\resources\static\image" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.test [deployDev]">
+    <configuration name="test [deployDev]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="deployDev" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="test.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.o2o.action.server.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.test [deployDev]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="NONE" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\intern\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d182719-722c-45ba-a85a-7244610919bd" name="Default Changelist" comment="" />
+      <created>1594189933162</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594189933162</updated>
+      <workItem from="1594189936079" duration="1497000" />
+      <workItem from="1594257147825" duration="447000" />
+      <workItem from="1594267505336" duration="3380000" />
+      <workItem from="1594271436300" duration="2389000" />
+      <workItem from="1594277612517" duration="3651000" />
+      <workItem from="1594361262860" duration="959000" />
+      <workItem from="1594600587320" duration="13433000" />
+      <workItem from="1594687374643" duration="16865000" />
+      <workItem from="1594710875598" duration="674000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="854" y="128" key="FileChooserDialogImpl" timestamp="1594711545764">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="854" y="128" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1594711545764" />
+    <state x="1033" y="310" width="261" height="217" key="Github.ShareDialog" timestamp="1594711530698">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="1033" y="310" width="261" height="217" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1594711530698" />
+    <state width="1493" height="174" key="GridCell.Tab.0.bottom" timestamp="1594710849440">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594710849440" />
+    <state width="1493" height="174" key="GridCell.Tab.0.center" timestamp="1594710849440">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="174" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1594710849440" />
+    <state width="1493" height="174" key="GridCell.Tab.0.left" timestamp="1594710849440">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="174" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1594710849440" />
+    <state width="1493" height="174" key="GridCell.Tab.0.right" timestamp="1594710849440">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="174" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1594710849440" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1594710849432">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594710849432" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1594710849432">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1594710849432" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1594710849432">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1594710849432" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1594710849432">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1594710849432" />
+    <state x="307" y="110" key="SettingsEditor" timestamp="1594711088918">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="307" y="110" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1594711088918" />
+    <state x="437" y="231" key="com.intellij.ide.util.TipDialog" timestamp="1594710879938">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="437" y="231" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1594710879938" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1594278992525">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1594278992525" />
+    <state x="964" y="108" key="svn.repositoryBrowser" timestamp="1594711298590">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="964" y="108" key="svn.repositoryBrowser/0.0.1536.824@0.0.1536.824" timestamp="1594711298590" />
+    <state x="903" y="221" key="svn4idea.mkdir.options" timestamp="1594711265343">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="903" y="221" key="svn4idea.mkdir.options/0.0.1536.824@0.0.1536.824" timestamp="1594711265343" />
+  </component>
+</project>
