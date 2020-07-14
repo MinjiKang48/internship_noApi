@@ -5,12 +5,12 @@ import com.google.actions.api.ActionResponse;
 import com.google.actions.api.DialogflowApp;
 import com.google.actions.api.ForIntent;
 import com.google.actions.api.response.ResponseBuilder;
-import com.google.api.services.actions_fulfillment.v2.model.BasicCard;
-import com.google.api.services.actions_fulfillment.v2.model.Image;
-import com.google.api.services.actions_fulfillment.v2.model.SimpleResponse;
+import com.google.actions.api.response.helperintent.SelectionList;
+import com.google.api.services.actions_fulfillment.v2.model.*;
 import com.o2o.action.server.util.CommonUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -100,36 +100,64 @@ public class internApp extends DialogflowApp {
 
 		data.clear();
 
-//		SelectionList selectionList = new SelectionList();
 		SimpleResponse simpleResponse = new SimpleResponse();
 
 		String actor = CommonUtil.makeSafeString(request.getParameter("actor"));
+		//entity를 못 가져오는데? 왜 이럴까요
 
-		//해당 배우의 작품 리스트
-//		selectionList
-//				.setTitle(actor + "의 드라마")
-//				.setItems(
-//						Arrays.asList(
-//								new ListSelectListItem()
-//										.setTitle("인간수업")
-//										.setDescription("인간수업은 어쩌구 저쩌구")
-//										.setImage(
-//												new Image()
-//														.setUrl("https://actions.o2o.kr/devsvr1/image/IweRIPTD-uu14KRMiYuyMihogoUY.jpg")
-//														.setAccessibilityText("인간수업 포스터")
-//										)
-//										.setOptionInfo(
-//												new OptionInfo()
-//														.setSynonyms(
-//																Arrays.asList("1", "2", "3")
-//														)
-//														.setKey("SELECTION_KEY_ONE")
-//										)));
+		//해당 배우의 드라마 목록
+        responseBuilder
+                .add(
+                        new SelectionList()
+                                .setTitle(actor + "의 드라마")
+                                .setItems(
+                                        Arrays.asList(
+                                                new ListSelectListItem()
+                                                        .setTitle("인간수업")
+                                                        .setDescription("인간수업은 어쩌구 저쩌구")
+                                                        .setImage(
+                                                                new Image()
+                                                                        .setUrl(
+                                                                                "https://actions.o2o.kr/devsvr1/image/인간수업포스터.jpg")
+                                                                        .setAccessibilityText("인간수업포스터"))
+                                                        .setOptionInfo(
+                                                                new OptionInfo()
+                                                                        .setSynonyms(
+                                                                                Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+                                                                        .setKey("SELECTION_KEY_ONE")),
+                                                new ListSelectListItem()
+                                                        .setTitle("Google Home")
+                                                        .setDescription(
+                                                                "Google Home is a voice-activated speaker powered by the Google Assistant.")
+                                                        .setImage(
+                                                                new Image()
+                                                                        .setUrl(
+                                                                                "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png")
+                                                                        .setAccessibilityText("Google Home"))
+                                                        .setOptionInfo(
+                                                                new OptionInfo()
+                                                                        .setSynonyms(
+                                                                                Arrays.asList(
+                                                                                        "Google Home Assistant",
+                                                                                        "Assistant on the Google Home"))
+                                                                        .setKey("SELECTION_KEY_GOOGLE_HOME")),
+                                                new ListSelectListItem()
+                                                        .setTitle("Google Pixel")
+                                                        .setDescription("Pixel. Phone by Google.")
+                                                        .setImage(
+                                                                new Image()
+                                                                        .setUrl(
+                                                                                "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png")
+                                                                        .setAccessibilityText("Google Pixel"))
+                                                        .setOptionInfo(
+                                                                new OptionInfo()
+                                                                        .setSynonyms(
+                                                                                Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+                                                                        .setKey("SELECTION_KEY_GOOGLE_PIXEL")))));
 
 		simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?") //소리
 				.setDisplayText("원하는 드라마를 선택해주세요."); //글 표시
 
-//		rb.add(selectionList);
 		responseBuilder.add(simpleResponse);
 
 		return responseBuilder.build();
