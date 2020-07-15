@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d182719-722c-45ba-a85a-7244610919bd" name="Default Changelist" comment="$git commit -m &quot;version 1.2&quot;">
+    <list default="true" id="9d182719-722c-45ba-a85a-7244610919bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/박서준드라마1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/박서준드라마2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/박서준드라마3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/배수지드라마1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/배수지드라마2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/배수지드라마3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/범죄드라마1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/범죄드라마2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/정유미드라마1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/정유미드라마2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/정유미드라마3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/최우식드라마1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/최우식드라마2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/최우식드라마3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/판타지드라마1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/판타지드라마2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/image/판타지드라마3.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -13,6 +30,7 @@
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/o2o/action/server/app/internApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/o2o/action/server/app/internApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/skylife-service.war" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/skylife-service.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/internApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/internApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/image/인간수업포스터.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/image/범죄드라마3.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +42,20 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -166,7 +198,9 @@
       <workItem from="1594361262860" duration="959000" />
       <workItem from="1594600587320" duration="13433000" />
       <workItem from="1594687374643" duration="16865000" />
-      <workItem from="1594710875598" duration="5793000" />
+      <workItem from="1594710875598" duration="5960000" />
+      <workItem from="1594718492071" duration="463000" />
+      <workItem from="1594773320895" duration="8319000" />
     </task>
     <task id="LOCAL-00001" summary="$git commit -m &quot;version 1.0&quot;">
       <created>1594711853107</created>
@@ -182,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594713733082</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="$git commit -m &quot;version 1.2&quot;">
+      <created>1594718281098</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1594718281098</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,13 +232,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="$git commit -m &quot;version 1.0&quot;" />
     <MESSAGE value="$git commit -m &quot;version 1.1&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="$git commit -m &quot;version 1.1&quot;" />
+    <MESSAGE value="$git commit -m &quot;version 1.2&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="$git commit -m &quot;version 1.2&quot;" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="673" y="13" key="CommitChangelistDialog2" timestamp="1594716213558">
+    <state x="673" y="13" key="CommitChangelistDialog2" timestamp="1594718277583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="673" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1594716213558" />
+    <state x="673" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1594718277583" />
     <state x="854" y="128" key="FileChooserDialogImpl" timestamp="1594711545764">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -206,22 +248,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="1033" y="310" width="261" height="217" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1594711530698" />
-    <state width="1493" height="174" key="GridCell.Tab.0.bottom" timestamp="1594716124236">
+    <state width="1493" height="175" key="GridCell.Tab.0.bottom" timestamp="1594780402457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594716124236" />
-    <state width="1493" height="174" key="GridCell.Tab.0.center" timestamp="1594716124236">
+    <state width="1493" height="175" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1594780402457" />
+    <state width="1493" height="175" key="GridCell.Tab.0.center" timestamp="1594780402457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1594716124236" />
-    <state width="1493" height="174" key="GridCell.Tab.0.left" timestamp="1594716124236">
+    <state width="1493" height="175" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1594780402457" />
+    <state width="1493" height="175" key="GridCell.Tab.0.left" timestamp="1594780402457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1594716124236" />
-    <state width="1493" height="174" key="GridCell.Tab.0.right" timestamp="1594716124236">
+    <state width="1493" height="175" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1594780402457" />
+    <state width="1493" height="175" key="GridCell.Tab.0.right" timestamp="1594780402457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1594716124236" />
+    <state width="1493" height="175" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1594780402457" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1594710849432">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -242,22 +284,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="307" y="110" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1594711088918" />
-    <state x="722" y="153" key="Vcs.Push.Dialog.v2" timestamp="1594713753854">
+    <state x="722" y="153" key="Vcs.Push.Dialog.v2" timestamp="1594718283728">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="722" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1594713753854" />
-    <state x="437" y="231" key="com.intellij.ide.util.TipDialog" timestamp="1594710879938">
+    <state x="722" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1594718283728" />
+    <state x="437" y="231" key="com.intellij.ide.util.TipDialog" timestamp="1594773350355">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="437" y="231" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1594710879938" />
+    <state x="437" y="231" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1594773350355" />
     <state x="570" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594713663344">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="570" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1594713663344" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1594278992525">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1594773683988">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1594278992525" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1594773683988" />
     <state x="964" y="108" key="svn.repositoryBrowser" timestamp="1594711298590">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

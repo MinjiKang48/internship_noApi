@@ -51,49 +51,48 @@ public class internApp extends DialogflowApp {
 		return rb.build();
 	}
 
-	@ForIntent("chosenActor")
+	@ForIntent("choice")
 	public ActionResponse chosenActor(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
-		responseBuilder
-				.add("어떤 배우의 작품을 보고싶으신가요?")
-				.addSuggestions(new String[]{"최우식", "정유미", "배수지", "박서준"});
+		List<String> suggestions = new ArrayList<String>();
+		SimpleResponse simpleResponse = new SimpleResponse();
+
+		String choice = CommonUtil.makeSafeString(request.getParameter("choice"));
+
+		if(choice.equals("배우")) {
+			simpleResponse
+					.setTextToSpeech("어떤 배우의 드라마를 보고싶으신가요?");
+			suggestions.add("최우식");
+			suggestions.add("정유미");
+			suggestions.add("박서준");
+			suggestions.add("배수지");
+		} else if(choice.equals("장르")) {
+			simpleResponse
+					.setTextToSpeech("어떤 장르의 드라마를 보고싶으신가요?");
+			suggestions.add("범죄");
+			suggestions.add("판타지");
+			suggestions.add("로맨스");
+			suggestions.add("10대");
+		} else if(choice.equals("연도")) {
+			simpleResponse
+					.setTextToSpeech("언제 방영된 드라마를 보고싶으신가요?");
+			suggestions.add("2017년");
+			suggestions.add("2018년");
+			suggestions.add("2019년");
+			suggestions.add("2020년");
+		}
+
+		responseBuilder.add(simpleResponse);
+		responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
 
 		return responseBuilder.build();
 	}
 
-//	@ForIntent("chosenGenre")
-//	public ActionResponse chosenGenre(ActionRequest request) throws ExecutionException, InterruptedException {
-//		ResponseBuilder rb = getResponseBuilder(request);
-//		Map<String, Object> data = rb.getConversationData();
-//
-//		data.clear();
-//
-//		rb
-//				.add("어떤 장르의 드라마를 보고싶으신가요?")
-//				.addSuggestions(new String[] {"범죄", "판타지", "로맨스", "10대"});
-//
-//		return rb.build();
-//	}
-//
-//	@ForIntent("chosenYear")
-//	public ActionResponse chosenYear(ActionRequest request) throws ExecutionException, InterruptedException {
-//		ResponseBuilder rb = getResponseBuilder(request);
-//		Map<String, Object> data = rb.getConversationData();
-//
-//		data.clear();
-//
-//		rb
-//				.add("언제 방영된 드라마를 보고싶으신가요?")
-//				.addSuggestions(new String[] {"2017년", "2018년", "2019년", "2020년"});
-//
-//		return rb.build();
-//	}
-
-	@ForIntent("chosenActorDramaList")
+	@ForIntent("chosenDramaList")
 	public ActionResponse chosenActorDrama(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
@@ -101,178 +100,192 @@ public class internApp extends DialogflowApp {
 		data.clear();
 
 		SimpleResponse simpleResponse = new SimpleResponse();
+		SelectionList selectionList = new SelectionList();
 
-		String actor = CommonUtil.makeSafeString(request.getParameter("actor"));
-		//entity를 못 가져오는데? 왜 이럴까요
+		String actor = CommonUtil.makeSafeString(request.getParameter("actor")); //custom entity를 만들어
+		String genre = CommonUtil.makeSafeString(request.getParameter("genre"));
+		String year = CommonUtil.makeSafeString(request.getParameter("year"));
 
-		//해당 배우의 드라마 목록
-        responseBuilder
-                .add(
-                        new SelectionList()
-                                .setTitle(actor + "의 드라마")
-                                .setItems(
-                                        Arrays.asList(
-                                                new ListSelectListItem()
-                                                        .setTitle("인간수업")
-                                                        .setDescription("인간수업은 어쩌구 저쩌구")
-                                                        .setImage(
-                                                                new Image()
-                                                                        .setUrl(
-                                                                                "https://actions.o2o.kr/devsvr1/image/인간수업포스터.jpg")
-                                                                        .setAccessibilityText("인간수업포스터"))
-                                                        .setOptionInfo(
-                                                                new OptionInfo()
-                                                                        .setSynonyms(
-                                                                                Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
-                                                                        .setKey("SELECTION_KEY_ONE")),
-                                                new ListSelectListItem()
-                                                        .setTitle("Google Home")
-                                                        .setDescription(
-                                                                "Google Home is a voice-activated speaker powered by the Google Assistant.")
-                                                        .setImage(
-                                                                new Image()
-                                                                        .setUrl(
-                                                                                "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png")
-                                                                        .setAccessibilityText("Google Home"))
-                                                        .setOptionInfo(
-                                                                new OptionInfo()
-                                                                        .setSynonyms(
-                                                                                Arrays.asList(
-                                                                                        "Google Home Assistant",
-                                                                                        "Assistant on the Google Home"))
-                                                                        .setKey("SELECTION_KEY_GOOGLE_HOME")),
-                                                new ListSelectListItem()
-                                                        .setTitle("Google Pixel")
-                                                        .setDescription("Pixel. Phone by Google.")
-                                                        .setImage(
-                                                                new Image()
-                                                                        .setUrl(
-                                                                                "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png")
-                                                                        .setAccessibilityText("Google Pixel"))
-                                                        .setOptionInfo(
-                                                                new OptionInfo()
-                                                                        .setSynonyms(
-                                                                                Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
-                                                                        .setKey("SELECTION_KEY_GOOGLE_PIXEL")))));
+		if(genre.equals("") && year.equals("")) {
+			selectionList
+					.setTitle(actor + "가 출연한 드라마")
+					.setItems(
+							Arrays.asList(
+									new ListSelectListItem()
+											.setTitle("인간수업")
+											.setDescription("인간수업은 어쩌구 저쩌구")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마1.jpg")
+															.setAccessibilityText(actor + "드라마1"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+															.setKey("SELECTION_KEY_ONE")),
+									new ListSelectListItem()
+											.setTitle("Google Home")
+											.setDescription(
+													"Google Home is a voice-activated speaker powered by the Google Assistant.")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마2.jpg")
+															.setAccessibilityText(actor + "드라마2"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList(
+																			"Google Home Assistant",
+																			"Assistant on the Google Home"))
+															.setKey("SELECTION_KEY_GOOGLE_HOME")),
+									new ListSelectListItem()
+											.setTitle("Google Pixel")
+											.setDescription("Pixel. Phone by Google.")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마3.jpg")
+															.setAccessibilityText(actor + "드라마3"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
+		} else if(actor.equals("") && year.equals("")) {
+			selectionList
+					.setTitle(genre + " 드라마")
+					.setItems(
+							Arrays.asList(
+									new ListSelectListItem()
+											.setTitle("인간수업")
+											.setDescription("인간수업은 어쩌구 저쩌구")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마1.jpg")
+															.setAccessibilityText(genre + "드라마1"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+															.setKey("SELECTION_KEY_ONE")),
+									new ListSelectListItem()
+											.setTitle("Google Home")
+											.setDescription(
+													"Google Home is a voice-activated speaker powered by the Google Assistant.")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마2.jpg")
+															.setAccessibilityText(genre + "드라마2"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList(
+																			"Google Home Assistant",
+																			"Assistant on the Google Home"))
+															.setKey("SELECTION_KEY_GOOGLE_HOME")),
+									new ListSelectListItem()
+											.setTitle("Google Pixel")
+											.setDescription("Pixel. Phone by Google.")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마3.jpg")
+															.setAccessibilityText(genre + "드라마3"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
+		} else if(actor.equals("") && genre.equals("")) {
+			selectionList
+					.setTitle(year + "에 방영된 드라마")
+					.setItems(
+							Arrays.asList(
+									new ListSelectListItem()
+											.setTitle("인간수업")
+											.setDescription("인간수업은 어쩌구 저쩌구")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + year + "드라마1.jpg")
+															.setAccessibilityText(year + "드라마1"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+															.setKey("SELECTION_KEY_ONE")),
+									new ListSelectListItem()
+											.setTitle("Google Home")
+											.setDescription(
+													"Google Home is a voice-activated speaker powered by the Google Assistant.")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + year + "드라마2.jpg")
+															.setAccessibilityText(year + "드라마2"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList(
+																			"Google Home Assistant",
+																			"Assistant on the Google Home"))
+															.setKey("SELECTION_KEY_GOOGLE_HOME")),
+									new ListSelectListItem()
+											.setTitle("Google Pixel")
+											.setDescription("Pixel. Phone by Google.")
+											.setImage(
+													new Image()
+															.setUrl(
+																	"https://actions.o2o.kr/devsvr1/image/" + year + "드라마3.jpg")
+															.setAccessibilityText(year + "드라마3"))
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
+		}
 
 		simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?") //소리
 				.setDisplayText("원하는 드라마를 선택해주세요."); //글 표시
 
+		responseBuilder.add(selectionList);
 		responseBuilder.add(simpleResponse);
 
 		return responseBuilder.build();
 	}
 
-//	@ForIntent("chosenGenreDrama")
-//	public ActionResponse chosenGenreDrama(ActionRequest request) throws ExecutionException, InterruptedException {
-//		ResponseBuilder rb = getResponseBuilder(request);
-//		Map<String, Object> data = rb.getConversationData();
-//
-//		data.clear();
-//
-//		SelectionList selectionList = new SelectionList();
-//		SimpleResponse simpleResponse = new SimpleResponse();
-//
-//		String genre = CommonUtil.makeSafeString(request.getParameter("genre"));
-//
-//			//장르에 관련된 드라마 리스트
-//		selectionList
-//					.setTitle(genre + " 드라마")
-//					.setItems(
-//							Arrays.asList(
-//									new ListSelectListItem()
-//									.setTitle("인간수업")
-//									.setDescription("인간수업은 어쩌구 저쩌구")
-//									.setImage(
-//											new Image()
-//													.setUrl("https://actions.o2o.kr/devsvr1/image/IweRIPTD-uu14KRMiYuyMihogoUY.jpg")
-//													.setAccessibilityText("인간수업 포스터")
-//									)
-//									.setOptionInfo(
-//											new OptionInfo()
-//												.setSynonyms(
-//														Arrays.asList("1", "2", "3")
-//												)
-//												.setKey("SELECTION_KEY_ONE")
-//							)));
-//
-//			simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?") //소리
-//					.setDisplayText("원하는 드라마를 선택해주세요.") //글 표시
-//			;
-//
-//
-//		rb.add(selectionList);
-//		rb.add(simpleResponse);
-//
-//		return rb.build();
-//	}
-//
-//	@ForIntent("chosenYearDrama")
-//	public ActionResponse chosenYearDrama(ActionRequest request) throws ExecutionException, InterruptedException {
-//		ResponseBuilder rb = getResponseBuilder(request);
-//		Map<String, Object> data = rb.getConversationData();
-//
-//		data.clear();
-//
-//		SelectionList selectionList = new SelectionList();
-//		SimpleResponse simpleResponse = new SimpleResponse();
-//
-//		String year = CommonUtil.makeSafeString(request.getParameter("date-time"));
-//
-//		//장르에 관련된 드라마 리스트
-//		selectionList
-//				.setTitle(year + "에 방영된 드라마")
-//				.setItems(
-//						Arrays.asList(
-//								new ListSelectListItem()
-//										.setTitle("인간수업")
-//										.setDescription("인간수업은 어쩌구 저쩌구")
-//										.setImage(
-//												new Image()
-//														.setUrl("https://actions.o2o.kr/devsvr1/image/IweRIPTD-uu14KRMiYuyMihogoUY.jpg")
-//														.setAccessibilityText("인간수업 포스터")
-//										)
-//										.setOptionInfo(
-//												new OptionInfo()
-//														.setSynonyms(
-//																Arrays.asList("1", "2", "3")
-//														)
-//														.setKey("SELECTION_KEY_ONE")
-//										)));
-//
-//		simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?") //소리
-//				.setDisplayText("원하는 드라마를 선택해주세요.") //글 표시
-//		;
-//
-//
-//		rb.add(selectionList);
-//		rb.add(simpleResponse);
-//
-//		return rb.build();
-//	}
-
-	@ForIntent("detailedDrama") //현재의 문제 : simpleResponse 말고 다른 response의 형태가 들어오면 실행 오류가 발생한다.
-	public ActionResponse detailedDrama(ActionRequest request) throws ExecutionException, InterruptedException {
+	@ForIntent("Drama Description")
+	public ActionResponse dramaDescription(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
 
 		SimpleResponse simpleResponse = new SimpleResponse();
-//        BasicCard basicCard = new BasicCard();
+		SimpleResponse simpleResponse2 = new SimpleResponse();
+        BasicCard basicCard = new BasicCard();
 
 		String drama = CommonUtil.makeSafeString(request.getParameter("drama"));
 
-//        basicCard
-//                .setTitle(drama)
-//                .setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/인간수업포스터.jpg")
-//                        .setAccessibilityText("인간수업 포스터"));
+		simpleResponse2
+				.setTextToSpeech("네, " + drama + "에 대해 알려드릴게요");
+
+		basicCard
+				.setTitle(drama)
+				.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/" + drama + "드라마1.jpg")
+						.setAccessibilityText(drama))
+				.setFormattedText(drama + "은 어쩌구 저쩌구");
 
 		simpleResponse
 				.setTextToSpeech("시청하시겠어요?")
 				.setDisplayText("시청하시겠어요?");
 
-//		responseBuilder.add(basicCard);
+		responseBuilder.add(simpleResponse2);
+		responseBuilder.add(basicCard);
 		responseBuilder.add(simpleResponse);
 
 		return responseBuilder.build();
