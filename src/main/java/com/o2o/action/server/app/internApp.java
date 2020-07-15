@@ -126,9 +126,9 @@ public class internApp extends DialogflowApp {
 
 		String actor = CommonUtil.makeSafeString(request.getParameter("actor")); //actor entity에는 : (현재) 최우식, 정유미, 박서준, 배수지
 		String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre entity에는  : (현재) 범죄, 판타지, 로맨스, 코미디, 10대
-		String author = CommonUtil.makeSafeString(request.getParameter("author")); //year entity에는 : (현재) 김은숙, 김은희, 노희경, 박지은
+		String author = CommonUtil.makeSafeString(request.getParameter("author")); //author entity에는 : (현재) 김은숙, 김은희, 노희경, 박지은
 
-		if(genre.equals("") && author.equals("")) { //배우를 선택해서 해당 배우의 드라마 목록을 보여줌
+		if(genre.equals("") && author.equals("")) {
 			selectionList
 					.setTitle(actor + "가 출연한 드라마")
 					.setItems(
@@ -141,7 +141,12 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마1.jpg")
 															.setAccessibilityText(actor + "드라마1"))
-											,
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+															.setKey("SELECTION_KEY_ONE"))
+									,
 									new ListSelectListItem()
 											.setTitle("Google Home")
 											.setDescription(
@@ -151,7 +156,14 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마2.jpg")
 															.setAccessibilityText(actor + "드라마2"))
-											,
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList(
+																			"Google Home Assistant",
+																			"Assistant on the Google Home"))
+															.setKey("SELECTION_KEY_GOOGLE_HOME"))
+									,
 									new ListSelectListItem()
 											.setTitle("Google Pixel")
 											.setDescription("Pixel. Phone by Google.")
@@ -160,8 +172,13 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마3.jpg")
 															.setAccessibilityText(actor + "드라마3"))
-											));
-		} else if(actor.equals("") && author.equals("")) { //장르를 선택해서 해당 장르의 드라마를 보여줌
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))
+							));
+		} else if(actor.equals("") && author.equals("")) {
 			selectionList
 					.setTitle(genre + " 드라마")
 					.setItems(
@@ -174,7 +191,11 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마1.jpg")
 															.setAccessibilityText(genre + "드라마1"))
-											,
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+															.setKey("SELECTION_KEY_ONE")),
 									new ListSelectListItem()
 											.setTitle("Google Home")
 											.setDescription(
@@ -184,7 +205,13 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마2.jpg")
 															.setAccessibilityText(genre + "드라마2"))
-											,
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList(
+																			"Google Home Assistant",
+																			"Assistant on the Google Home"))
+															.setKey("SELECTION_KEY_GOOGLE_HOME")),
 									new ListSelectListItem()
 											.setTitle("Google Pixel")
 											.setDescription("Pixel. Phone by Google.")
@@ -193,10 +220,14 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마3.jpg")
 															.setAccessibilityText(genre + "드라마3"))
-											));
-		} else if(actor.equals("") && genre.equals("")) { //연도를 선택해서 해당 연도 방영 드라마 목록 보여줌
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
+		} else if(actor.equals("") && genre.equals("")) {
 			selectionList
-					.setTitle(author + "작가의 드라마")
+					.setTitle(author + "에 방영된 드라마")
 					.setItems(
 							Arrays.asList(
 									new ListSelectListItem()
@@ -207,7 +238,11 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + author + "드라마1.jpg")
 															.setAccessibilityText(author + "드라마1"))
-											,
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
+															.setKey("SELECTION_KEY_ONE")),
 									new ListSelectListItem()
 											.setTitle("Google Home")
 											.setDescription(
@@ -217,7 +252,13 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + author + "드라마2.jpg")
 															.setAccessibilityText(author + "드라마2"))
-											,
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList(
+																			"Google Home Assistant",
+																			"Assistant on the Google Home"))
+															.setKey("SELECTION_KEY_GOOGLE_HOME")),
 									new ListSelectListItem()
 											.setTitle("Google Pixel")
 											.setDescription("Pixel. Phone by Google.")
@@ -226,7 +267,11 @@ public class internApp extends DialogflowApp {
 															.setUrl(
 																	"https://actions.o2o.kr/devsvr1/image/" + author + "드라마3.jpg")
 															.setAccessibilityText(author + "드라마3"))
-											));
+											.setOptionInfo(
+													new OptionInfo()
+															.setSynonyms(
+																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
+															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
 		}
 
 		simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?")
