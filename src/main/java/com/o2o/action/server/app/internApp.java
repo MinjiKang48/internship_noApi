@@ -115,7 +115,7 @@ public class internApp extends DialogflowApp {
 	 * @throws InterruptedException
 	 */
 	@ForIntent("chosenDramaList")
-	public ActionResponse chosenActorDrama(ActionRequest request) throws ExecutionException, InterruptedException {
+	public ActionResponse chosenDramaList(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
 
@@ -356,13 +356,13 @@ public class internApp extends DialogflowApp {
 	}
 
 	/**
-	 * 드라마를 시청하지 않는다고 하면 다른 드라마를 선택할 수 있도록 한다.
+	 * 드라마를 시청하지 않는다고 하면 아예 처음으로 돌아감
 	 * @param request
 	 * @return
 	 * @throws ExecutionException
 	 * @throws InterruptedException
 	 */
-	@ForIntent("No Watch") //실행되지 않음 (??? 왜)
+	@ForIntent("No Watch")
 	public ActionResponse noWatch(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
@@ -370,12 +370,23 @@ public class internApp extends DialogflowApp {
 		data.clear();
 
 		SimpleResponse simpleResponse = new SimpleResponse();
+		SimpleResponse simpleResponse2 = new SimpleResponse();
+		List<String> suggestions = new ArrayList<String>();
 
 		simpleResponse
 				.setDisplayText("다른 드라마를 선택해주세요.")
 				.setTextToSpeech("다른 드라마를 선택해주세요");
 
-		chosenActorDrama(request);
+		simpleResponse2
+				.setTextToSpeech("장르, 배우 혹은 작가를 선택해주세요.");
+
+		suggestions.add("장르");
+		suggestions.add("배우");
+		suggestions.add("작가");
+
+		responseBuilder.add(simpleResponse);
+		responseBuilder.add(simpleResponse2);
+		responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
 
 		return responseBuilder.build();
 	}
