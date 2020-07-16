@@ -13,7 +13,6 @@ import com.google.gson.JsonParser;
 import com.o2o.action.server.util.CommonUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -68,7 +67,7 @@ public class internApp extends DialogflowApp {
 	 * @throws InterruptedException
 	 */
 	@ForIntent("choice")
-	public ActionResponse chosenActor(ActionRequest request) throws ExecutionException, InterruptedException {
+	public ActionResponse choice(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
 
@@ -101,37 +100,58 @@ public class internApp extends DialogflowApp {
 		return responseBuilder.build();
 	}
 
-//	public static void main(String[] args) {
-//		ApiController apcon = new ApiController();
-//		//System.out.println(apcon.getGenre());
-//
-//		JsonParser jsonParser = new JsonParser();
-//		DramaList dramaList = new DramaList();
-////		JsonObject jsonobj = (JsonObject) jsonParser.parse(apcon.getCountriesList(348));
-//		// 받아온 정보의 에러코드 확인
+	public static void main(String[] args) {
+		ApiController apcon = new ApiController();
+		//System.out.println(apcon.getGenre());
+
+		JsonParser jsonParser = new JsonParser();
+		DramaList dramaList = new DramaList();
 //		JsonObject jsonobj = (JsonObject) jsonParser.parse(apcon.getCountriesList(348));
-//		JsonArray results = jsonobj.get("results").getAsJsonArray();
-//		String cnt = jsonobj.get("total").toString();
-//		int count = Integer.parseInt(cnt);
-//		System.out.println(cnt);
-//		for(int i = 0; i < 100; i++){
-//			Drama drama = new Drama();
-//			JsonObject element = results.get(i).getAsJsonObject();
-//			drama.title = element.get("title").toString();
-//			drama.imgUrl = element.get("img").toString();
-//			drama.id = element.get("id").toString();
-//			drama.nid = element.get("nfid").toString();
-//			drama.synopsis = element.get("synopsis").toString();
-//			drama.titleDate = element.get("titledate").toString();
-//			drama.avgrating = element.get("avgrating").toString();
-//			dramaList.items.add(drama);
-//		}
-//
+		// 받아온 정보의 에러코드 확인
+		JsonObject jsonobj = (JsonObject) jsonParser.parse(apcon.getCountriesList(348));
+		JsonArray results = jsonobj.get("results").getAsJsonArray();
+		String cnt = jsonobj.get("total").toString();
+		int count = Integer.parseInt(cnt);
+		System.out.println(cnt);
+		for(int i = 0; i < 100; i++){
+			Drama drama = new Drama();
+			JsonObject element = results.get(i).getAsJsonObject();
+			drama.title = element.get("title").toString();
+			drama.imgUrl = element.get("img").toString();
+			drama.id = element.get("id").toString();
+			drama.nid = element.get("nfid").toString();
+			drama.synopsis = element.get("synopsis").toString();
+			drama.titleDate = element.get("titledate").toString();
+			drama.avgrating = element.get("avgrating").toString();
+			dramaList.items.add(drama);
+		}
+
 //		for(int i = 0; i < dramaList.items.size(); i++){
 //			System.out.println(dramaList.items.get(i).title);
 //		}
-//	}
-//
+
+		ArrayList<ListSelectListItem> list = new ArrayList<ListSelectListItem>();
+		for(int i = 0; i < dramaList.items.size(); i++) {
+			list.add(
+					new ListSelectListItem()
+							.setTitle(dramaList.items.get(i).title)
+							.setDescription(dramaList.items.get(i).synopsis)
+							.setImage(
+									new Image()
+											.setUrl(
+													dramaList.items.get(i).imgUrl)
+											.setAccessibilityText(dramaList.items.get(i).title))
+							.setOptionInfo(
+									new OptionInfo()
+											.setKey(dramaList.items.get(i).id)));
+		}
+
+		for(int i = 0; i < list.size(); i++)
+			System.out.println(list.get(i).getTitle());
+	}
+
+	DramaList dramaList = new DramaList();
+
 	/**
 	 * 선택한 장르, 국가에 대한 드라마 목록 제시
 	 * @param request
@@ -148,160 +168,65 @@ public class internApp extends DialogflowApp {
 
 		SimpleResponse simpleResponse = new SimpleResponse();
 		SelectionList selectionList = new SelectionList();
-		ApiController apiController = new ApiController();
-		DramaList dramaList = new DramaList();
 
-		String countries = CommonUtil.makeSafeString(request.getParameter("countries")); //countries : (현재) 미국, 영국, 스페인, 한국
-		String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre : (현재) 범죄, 판타지, 로맨스, 코미디, 10대
+		final String countries = CommonUtil.makeSafeString(request.getParameter("countries")); //countries : (현재) 미국, 영국, 스페인, 한국
+		final String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre : (현재) 범죄, 판타지, 로맨틱코미디, 10대
 
-		JsonParser jsonParser = new JsonParser();
-
+		JsonArray result = new JsonArray();
 		if(genre.equals("")) {//countries 선택
-			int countriesId; JsonObject jsonobj; JsonArray results; String cnt; int count;
 			switch(countries) {
 				case "한국":
-					countriesId = 348;
-					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
-					results = jsonobj.get("results").getAsJsonArray();
-					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
-					for(int i = 0; i < 100; i++){
-						Drama drama = new Drama();
-						JsonObject element = results.get(i).getAsJsonObject();
-						drama.imgUrl = element.get("img").toString();
-						drama.id = element.get("id").toString();
-						drama.nid = element.get("nid").toString();
-						drama.synopsis = element.get("synopsis").toString();
-						drama.titleDate = element.get("titledate").toString();
-						drama.avgrating = element.get("avgrating").toString();
-						dramaList.items.add(drama);
-					}
+					result = processCountries(348);
 					break;
 				case "미국":
-					countriesId = 78;
-					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
-					results = jsonobj.get("results").getAsJsonArray();
-					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
-					for(int i = 0; i < 100; i++){
-						Drama drama = new Drama();
-						JsonObject element = results.get(i).getAsJsonObject();
-						drama.imgUrl = element.get("img").toString();
-						drama.id = element.get("id").toString();
-						drama.nid = element.get("nfid").toString();
-						drama.synopsis = element.get("synopsis").toString();
-						drama.titleDate = element.get("titledate").toString();
-						drama.avgrating = element.get("avgrating").toString();
-						dramaList.items.add(drama);
-					}
+					result = processCountries(78);
 					break;
 				case "영국":
-					countriesId = 46;
-					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
-					results = jsonobj.get("results").getAsJsonArray();
-					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
-					for(int i = 0; i < 100; i++){
-						Drama drama = new Drama();
-						JsonObject element = results.get(i).getAsJsonObject();
-						drama.imgUrl = element.get("img").toString();
-						drama.id = element.get("id").toString();
-						drama.nid = element.get("nfid").toString();
-						drama.synopsis = element.get("synopsis").toString();
-						drama.titleDate = element.get("titledate").toString();
-						drama.avgrating = element.get("avgrating").toString();
-						dramaList.items.add(drama);
-					}
+					result = processCountries(46);
 					break;
 				case "스페인":
-					countriesId = 270;
-					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
-					results = jsonobj.get("results").getAsJsonArray();
-					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
-					for(int i = 0; i < 100; i++){
-						Drama drama = new Drama();
-						JsonObject element = results.get(i).getAsJsonObject();
-						drama.imgUrl = element.get("img").toString();
-						drama.id = element.get("id").toString();
-						drama.nid = element.get("nfid").toString();
-						drama.synopsis = element.get("synopsis").toString();
-						drama.titleDate = element.get("titledate").toString();
-						drama.avgrating = element.get("avgrating").toString();
-						dramaList.items.add(drama);
-					}
+					result = processCountries(270);
 					break;
 			}
 
-			ArrayList<ListSelectListItem> list = new ArrayList<ListSelectListItem>();
-			for(int i = 0; i < dramaList.items.size(); i++) {
-				ListSelectListItem item = new ListSelectListItem()
-						.setTitle(dramaList.items.get(i).title)
-						.setDescription(dramaList.items.get(i).synopsis)
-						.setImage(
-								new Image()
-										.setUrl(dramaList.items.get(i).imgUrl)
-										.setAccessibilityText(dramaList.items.get(i).title)
-						)
-						.setOptionInfo(
-								new OptionInfo()
-										.setSynonyms(
-												Arrays.asList("1", "2", "3")
-										)
-										.setKey("SELECTION_KEY_ONE")
-						);
-				list.add(item);
-			}
-
-
-			selectionList
-					.setTitle(countries + " 드라마")
-					.setItems(list);
-
 		} else if(countries.equals("")) {
-			selectionList
-					.setTitle(genre + " 드라마")
-					.setItems(
-							Arrays.asList(
-									new ListSelectListItem()
-											.setTitle("인간수업")
-											.setDescription("인간수업은 어쩌구 저쩌구")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마1.jpg")
-															.setAccessibilityText(genre + "드라마1"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
-															.setKey("SELECTION_KEY_ONE")),
-									new ListSelectListItem()
-											.setTitle("Google Home")
-											.setDescription(
-													"Google Home is a voice-activated speaker powered by the Google Assistant.")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마2.jpg")
-															.setAccessibilityText(genre + "드라마2"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList(
-																			"Google Home Assistant",
-																			"Assistant on the Google Home"))
-															.setKey("SELECTION_KEY_GOOGLE_HOME")),
-									new ListSelectListItem()
-											.setTitle("Google Pixel")
-											.setDescription("Pixel. Phone by Google.")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + genre + "드라마3.jpg")
-															.setAccessibilityText(genre + "드라마3"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
-															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
+			switch(genre) {
+				case "로맨틱코미디":
+					processGenre(5475);
+					break;
+				case "10대":
+					processGenre(9299);
+					break;
+				case "판타지":
+					processGenre(1568);
+					break;
+				case "범죄":
+					processGenre(68889);
+					break;
+			}
 		}
+
+		ArrayList<ListSelectListItem> list = new ArrayList<>();
+
+		for(int i = 0; i < result.size(); i++) {
+//			ListSelectListItem listItem = new ListSelectListItem();
+			list.add(
+					new ListSelectListItem()
+							.setTitle(dramaList.items.get(i).title)
+							.setDescription(dramaList.items.get(i).synopsis)
+							.setImage(
+									new Image()
+											.setUrl(
+													dramaList.items.get(i).imgUrl)
+											.setAccessibilityText(dramaList.items.get(i).title))
+							.setOptionInfo(
+									new OptionInfo()
+											.setKey(dramaList.items.get(i).id)));
+		}
+
+		selectionList
+				.setTitle("ee")
+				.setItems(list);
 
 		simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?")
 				.setDisplayText("원하는 드라마를 선택해주세요.");
@@ -312,6 +237,43 @@ public class internApp extends DialogflowApp {
 		return responseBuilder.build();
 	}
 
+	private JsonArray processCountries(int id) {
+		JsonParser jsonParser = new JsonParser(); ApiController apiController = new ApiController();
+		JsonObject jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(id));
+		JsonArray results = jsonobj.get("results").getAsJsonArray();
+//		for(int i = 0; i < 8; i++){
+//			Drama drama = new Drama();
+//			JsonObject element = results.get(i).getAsJsonObject();
+//			drama.title = element.get("title").toString();
+//			drama.imgUrl = element.get("img").toString();
+//			drama.id = element.get("id").toString();
+//			drama.nid = element.get("nid").toString();
+//			drama.synopsis = element.get("synopsis").toString();
+//			drama.titleDate = element.get("titledate").toString();
+//			drama.avgrating = element.get("avgrating").toString();
+//			dramaList.items.add(drama);
+//		}
+		return results;
+	}
+
+	private void processGenre(int id) {
+		JsonParser jsonParser = new JsonParser(); ApiController apiController = new ApiController();
+		JsonObject jsonobj = (JsonObject) jsonParser.parse(apiController.getGenreList(id));
+		JsonArray results = jsonobj.get("results").getAsJsonArray();
+		for(int i = 0; i < 8; i++){
+			Drama drama = new Drama();
+			JsonObject element = results.get(i).getAsJsonObject();
+			drama.title = element.get("title").toString();
+			drama.imgUrl = element.get("img").toString();
+			drama.id = element.get("id").toString();
+			drama.nid = element.get("nid").toString();
+			drama.synopsis = element.get("synopsis").toString();
+			drama.titleDate = element.get("titledate").toString();
+			drama.avgrating = element.get("avgrating").toString();
+			dramaList.items.add(drama);
+		}
+	}
+
 	/**
 	 * 드라마 목록 중 선택한 드라마에 대한 설명
 	 * @param request
@@ -319,6 +281,7 @@ public class internApp extends DialogflowApp {
 	 * @throws ExecutionException
 	 * @throws InterruptedException
 	 */
+	String id;
 	@ForIntent("Drama Description")
 	public ActionResponse dramaDescription(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
@@ -327,31 +290,45 @@ public class internApp extends DialogflowApp {
 		data.clear();
 
         String selectedItem = request.getSelectedOption();
-        String drama;
+        String drama = new String();
 
-        if (selectedItem.equals("SELECTION_KEY_ONE")) {
-            drama = "You selected the first item";
-        } else if (selectedItem.equals("SELECTION_KEY_GOOGLE_HOME")) {
-            drama = "You selected the Google Home!";
-        } else if (selectedItem.equals("SELECTION_KEY_GOOGLE_PIXEL")) {
-            drama = "You selected the Google Pixel!";
-        } else {
-            drama = CommonUtil.makeSafeString(request.getParameter("drama"));
-        }
+        int i;
+        for(i = 0; i < dramaList.items.size(); i++){
+        	if(selectedItem.equals(dramaList.items.get(i).id)) {
+				drama = "You selected the" + i + "item";
+				id = dramaList.items.get(i).nid;
+			}
+        	else
+        		drama = CommonUtil.makeSafeString(request.getParameter("drama"));
+		}
+//        if (selectedItem.equals(dramaList.items.get(i).id)) {
+//            drama = "You selected the first item";
+//        } else if (selectedItem.equals("SELECTION_KEY_GOOGLE_HOME")) {
+//            drama = "You selected the Google Home!";
+//        } else if (selectedItem.equals("SELECTION_KEY_GOOGLE_PIXEL")) {
+//            drama = "You selected the Google Pixel!";
+//        } else {
+//            drama = CommonUtil.makeSafeString(request.getParameter("drama"));
+//        }
 
 		SimpleResponse simpleResponse = new SimpleResponse();
 		SimpleResponse simpleResponse2 = new SimpleResponse();
         BasicCard basicCard = new BasicCard();
 
+
 		simpleResponse2
-				.setTextToSpeech("네, " + drama + "에 대해 알려드릴게요");
+				.setTextToSpeech("네, " + dramaList.items.get(i).title + "에 대해 알려드릴게요");
+
+		String synopsis = "줄거리 " + dramaList.items.get(i).synopsis + "\n";
+		String titleDate = "방영일" + dramaList.items.get(i).titleDate + "\n";
+		String avgrating = "평점" + dramaList.items.get(i).avgrating + "\n";
 
 		//해당 드라마의 포스터와 간단 줄거리 등을 보여줌
 		basicCard
-				.setTitle(drama)
-				.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/최우식드라마1.jpg")
-						.setAccessibilityText(drama))
-				.setFormattedText(drama + "은 어쩌구 저쩌구");
+				.setTitle(dramaList.items.get(i).title)
+				.setImage(new Image().setUrl(dramaList.items.get(i).imgUrl)
+						.setAccessibilityText(dramaList.items.get(i).title))
+				.setFormattedText(synopsis + titleDate + avgrating);
 
 		simpleResponse
 				.setTextToSpeech("시청하시겠어요?")
@@ -377,8 +354,6 @@ public class internApp extends DialogflowApp {
 		Map<String, Object> data = responseBuilder.getConversationData();
 
 		data.clear();
-
-		String id = new String();
 
 		SimpleResponse simpleResponse = new SimpleResponse();
 		LinkOutSuggestion linkOutSuggestion = new LinkOutSuggestion();
