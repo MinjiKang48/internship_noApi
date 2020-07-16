@@ -7,6 +7,9 @@ import com.google.actions.api.ForIntent;
 import com.google.actions.api.response.ResponseBuilder;
 import com.google.actions.api.response.helperintent.SelectionList;
 import com.google.api.services.actions_fulfillment.v2.model.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.o2o.action.server.util.CommonUtil;
 
 import java.util.ArrayList;
@@ -16,7 +19,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class internApp extends DialogflowApp {
-
 	/**
 	 * welcome intent
 	 * @param request
@@ -45,11 +47,10 @@ public class internApp extends DialogflowApp {
 						.setAccessibilityText("home"));
 
 		SimpleResponse simpleResponse2 = new SimpleResponse();
-		simpleResponse2.setTextToSpeech("장르, 배우 혹은 작가를 선택해주세요.");
+		simpleResponse2.setTextToSpeech("국가 혹은 장르를 선택해주세요.");
 
+		suggestions.add("국가");
 		suggestions.add("장르");
-		suggestions.add("배우");
-		suggestions.add("작가");
 
 		responseBuilder.add(simpleResponse);
 		responseBuilder.add(basicCard);
@@ -78,27 +79,20 @@ public class internApp extends DialogflowApp {
 
 		String choice = CommonUtil.makeSafeString(request.getParameter("choice"));
 
-		if(choice.equals("배우")) { //배우 선택
+		if(choice.equals("나라") || choice.equals("국가")) { //나라 선택
 			simpleResponse
-					.setTextToSpeech("어떤 배우의 드라마를 보고싶으신가요?");
-			suggestions.add("최우식");
-			suggestions.add("정유미");
-			suggestions.add("박서준");
-			suggestions.add("배수지");
+					.setTextToSpeech("어떤 나라의 드라마를 보고싶으신가요?");
+			suggestions.add("한국");
+			suggestions.add("미국");
+			suggestions.add("영국");
+			suggestions.add("스페인");
 		} else if(choice.equals("장르")) { //장르 선택
 			simpleResponse
 					.setTextToSpeech("어떤 장르의 드라마를 보고싶으신가요?");
 			suggestions.add("범죄");
 			suggestions.add("판타지");
-			suggestions.add("로맨스");
+			suggestions.add("로맨틱코미디");
 			suggestions.add("10대");
-		} else if(choice.equals("작가")) { //작가 선택
-			simpleResponse
-					.setTextToSpeech("어떤 작가의 드라마를 보고싶으신가요?");
-			suggestions.add("김은숙");
-			suggestions.add("김은희");
-			suggestions.add("박지은");
-			suggestions.add("노희경");
 		}
 
 		responseBuilder.add(simpleResponse);
@@ -107,8 +101,39 @@ public class internApp extends DialogflowApp {
 		return responseBuilder.build();
 	}
 
+//	public static void main(String[] args) {
+//		ApiController apcon = new ApiController();
+//		//System.out.println(apcon.getGenre());
+//
+//		JsonParser jsonParser = new JsonParser();
+//		DramaList dramaList = new DramaList();
+////		JsonObject jsonobj = (JsonObject) jsonParser.parse(apcon.getCountriesList(348));
+//		// 받아온 정보의 에러코드 확인
+//		JsonObject jsonobj = (JsonObject) jsonParser.parse(apcon.getCountriesList(348));
+//		JsonArray results = jsonobj.get("results").getAsJsonArray();
+//		String cnt = jsonobj.get("total").toString();
+//		int count = Integer.parseInt(cnt);
+//		System.out.println(cnt);
+//		for(int i = 0; i < 100; i++){
+//			Drama drama = new Drama();
+//			JsonObject element = results.get(i).getAsJsonObject();
+//			drama.title = element.get("title").toString();
+//			drama.imgUrl = element.get("img").toString();
+//			drama.id = element.get("id").toString();
+//			drama.nid = element.get("nfid").toString();
+//			drama.synopsis = element.get("synopsis").toString();
+//			drama.titleDate = element.get("titledate").toString();
+//			drama.avgrating = element.get("avgrating").toString();
+//			dramaList.items.add(drama);
+//		}
+//
+//		for(int i = 0; i < dramaList.items.size(); i++){
+//			System.out.println(dramaList.items.get(i).title);
+//		}
+//	}
+//
 	/**
-	 * 선택한 장르, 배우 혹은 연도에 대한 드라마 목록 제시
+	 * 선택한 장르, 국가에 대한 드라마 목록 제시
 	 * @param request
 	 * @return
 	 * @throws ExecutionException
@@ -123,62 +148,113 @@ public class internApp extends DialogflowApp {
 
 		SimpleResponse simpleResponse = new SimpleResponse();
 		SelectionList selectionList = new SelectionList();
+		ApiController apiController = new ApiController();
+		DramaList dramaList = new DramaList();
 
-		String actor = CommonUtil.makeSafeString(request.getParameter("actor")); //actor entity에는 : (현재) 최우식, 정유미, 박서준, 배수지
-		String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre entity에는  : (현재) 범죄, 판타지, 로맨스, 코미디, 10대
-		String author = CommonUtil.makeSafeString(request.getParameter("author")); //author entity에는 : (현재) 김은숙, 김은희, 노희경, 박지은
+		String countries = CommonUtil.makeSafeString(request.getParameter("countries")); //countries : (현재) 미국, 영국, 스페인, 한국
+		String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre : (현재) 범죄, 판타지, 로맨스, 코미디, 10대
 
-		if(genre.equals("") && author.equals("")) {
+		JsonParser jsonParser = new JsonParser();
+
+		if(genre.equals("")) {//countries 선택
+			int countriesId; JsonObject jsonobj; JsonArray results; String cnt; int count;
+			switch(countries) {
+				case "한국":
+					countriesId = 348;
+					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
+					results = jsonobj.get("results").getAsJsonArray();
+					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
+					for(int i = 0; i < 100; i++){
+						Drama drama = new Drama();
+						JsonObject element = results.get(i).getAsJsonObject();
+						drama.imgUrl = element.get("img").toString();
+						drama.id = element.get("id").toString();
+						drama.nid = element.get("nid").toString();
+						drama.synopsis = element.get("synopsis").toString();
+						drama.titleDate = element.get("titledate").toString();
+						drama.avgrating = element.get("avgrating").toString();
+						dramaList.items.add(drama);
+					}
+					break;
+				case "미국":
+					countriesId = 78;
+					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
+					results = jsonobj.get("results").getAsJsonArray();
+					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
+					for(int i = 0; i < 100; i++){
+						Drama drama = new Drama();
+						JsonObject element = results.get(i).getAsJsonObject();
+						drama.imgUrl = element.get("img").toString();
+						drama.id = element.get("id").toString();
+						drama.nid = element.get("nfid").toString();
+						drama.synopsis = element.get("synopsis").toString();
+						drama.titleDate = element.get("titledate").toString();
+						drama.avgrating = element.get("avgrating").toString();
+						dramaList.items.add(drama);
+					}
+					break;
+				case "영국":
+					countriesId = 46;
+					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
+					results = jsonobj.get("results").getAsJsonArray();
+					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
+					for(int i = 0; i < 100; i++){
+						Drama drama = new Drama();
+						JsonObject element = results.get(i).getAsJsonObject();
+						drama.imgUrl = element.get("img").toString();
+						drama.id = element.get("id").toString();
+						drama.nid = element.get("nfid").toString();
+						drama.synopsis = element.get("synopsis").toString();
+						drama.titleDate = element.get("titledate").toString();
+						drama.avgrating = element.get("avgrating").toString();
+						dramaList.items.add(drama);
+					}
+					break;
+				case "스페인":
+					countriesId = 270;
+					jsonobj = (JsonObject) jsonParser.parse(apiController.getCountriesList(countriesId));
+					results = jsonobj.get("results").getAsJsonArray();
+					cnt = jsonobj.get("total").toString(); count = Integer.parseInt(cnt);
+					for(int i = 0; i < 100; i++){
+						Drama drama = new Drama();
+						JsonObject element = results.get(i).getAsJsonObject();
+						drama.imgUrl = element.get("img").toString();
+						drama.id = element.get("id").toString();
+						drama.nid = element.get("nfid").toString();
+						drama.synopsis = element.get("synopsis").toString();
+						drama.titleDate = element.get("titledate").toString();
+						drama.avgrating = element.get("avgrating").toString();
+						dramaList.items.add(drama);
+					}
+					break;
+			}
+
+			ArrayList<ListSelectListItem> list = new ArrayList<ListSelectListItem>();
+			for(int i = 0; i < dramaList.items.size(); i++) {
+				ListSelectListItem item = new ListSelectListItem()
+						.setTitle(dramaList.items.get(i).title)
+						.setDescription(dramaList.items.get(i).synopsis)
+						.setImage(
+								new Image()
+										.setUrl(dramaList.items.get(i).imgUrl)
+										.setAccessibilityText(dramaList.items.get(i).title)
+						)
+						.setOptionInfo(
+								new OptionInfo()
+										.setSynonyms(
+												Arrays.asList("1", "2", "3")
+										)
+										.setKey("SELECTION_KEY_ONE")
+						);
+				list.add(item);
+			}
+
+
 			selectionList
-					.setTitle(actor + "가 출연한 드라마")
-					.setItems(
-							Arrays.asList(
-									new ListSelectListItem()
-											.setTitle("인간수업")
-											.setDescription("인간수업은 어쩌구 저쩌구")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마1.jpg")
-															.setAccessibilityText(actor + "드라마1"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
-															.setKey("SELECTION_KEY_ONE"))
-									,
-									new ListSelectListItem()
-											.setTitle("Google Home")
-											.setDescription(
-													"Google Home is a voice-activated speaker powered by the Google Assistant.")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마2.jpg")
-															.setAccessibilityText(actor + "드라마2"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList(
-																			"Google Home Assistant",
-																			"Assistant on the Google Home"))
-															.setKey("SELECTION_KEY_GOOGLE_HOME"))
-									,
-									new ListSelectListItem()
-											.setTitle("Google Pixel")
-											.setDescription("Pixel. Phone by Google.")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + actor + "드라마3.jpg")
-															.setAccessibilityText(actor + "드라마3"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
-															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))
-							));
-		} else if(actor.equals("") && author.equals("")) {
+					.setTitle(countries + " 드라마")
+					.setItems(list);
+
+		} else if(countries.equals("")) {
 			selectionList
 					.setTitle(genre + " 드라마")
 					.setItems(
@@ -225,53 +301,6 @@ public class internApp extends DialogflowApp {
 															.setSynonyms(
 																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
 															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
-		} else if(actor.equals("") && genre.equals("")) {
-			selectionList
-					.setTitle(author + "에 방영된 드라마")
-					.setItems(
-							Arrays.asList(
-									new ListSelectListItem()
-											.setTitle("인간수업")
-											.setDescription("인간수업은 어쩌구 저쩌구")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + author + "드라마1.jpg")
-															.setAccessibilityText(author + "드라마1"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList("synonym 1", "synonym 2", "synonym 3"))
-															.setKey("SELECTION_KEY_ONE")),
-									new ListSelectListItem()
-											.setTitle("Google Home")
-											.setDescription(
-													"Google Home is a voice-activated speaker powered by the Google Assistant.")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + author + "드라마2.jpg")
-															.setAccessibilityText(author + "드라마2"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList(
-																			"Google Home Assistant",
-																			"Assistant on the Google Home"))
-															.setKey("SELECTION_KEY_GOOGLE_HOME")),
-									new ListSelectListItem()
-											.setTitle("Google Pixel")
-											.setDescription("Pixel. Phone by Google.")
-											.setImage(
-													new Image()
-															.setUrl(
-																	"https://actions.o2o.kr/devsvr1/image/" + author + "드라마3.jpg")
-															.setAccessibilityText(author + "드라마3"))
-											.setOptionInfo(
-													new OptionInfo()
-															.setSynonyms(
-																	Arrays.asList("Google Pixel XL", "Pixel", "Pixel XL"))
-															.setKey("SELECTION_KEY_GOOGLE_PIXEL"))));
 		}
 
 		simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?")
@@ -297,12 +326,22 @@ public class internApp extends DialogflowApp {
 
 		data.clear();
 
+        String selectedItem = request.getSelectedOption();
+        String drama;
+
+        if (selectedItem.equals("SELECTION_KEY_ONE")) {
+            drama = "You selected the first item";
+        } else if (selectedItem.equals("SELECTION_KEY_GOOGLE_HOME")) {
+            drama = "You selected the Google Home!";
+        } else if (selectedItem.equals("SELECTION_KEY_GOOGLE_PIXEL")) {
+            drama = "You selected the Google Pixel!";
+        } else {
+            drama = CommonUtil.makeSafeString(request.getParameter("drama"));
+        }
+
 		SimpleResponse simpleResponse = new SimpleResponse();
 		SimpleResponse simpleResponse2 = new SimpleResponse();
         BasicCard basicCard = new BasicCard();
-
-        //여러가지 드라마를 drama 엔티티로 받음
-		String drama = CommonUtil.makeSafeString(request.getParameter("drama"));
 
 		simpleResponse2
 				.setTextToSpeech("네, " + drama + "에 대해 알려드릴게요");
@@ -339,6 +378,8 @@ public class internApp extends DialogflowApp {
 
 		data.clear();
 
+		String id = new String();
+
 		SimpleResponse simpleResponse = new SimpleResponse();
 		LinkOutSuggestion linkOutSuggestion = new LinkOutSuggestion();
 
@@ -347,7 +388,7 @@ public class internApp extends DialogflowApp {
 
 		linkOutSuggestion
 				.setDestinationName("넷플릭스 연결")
-				.setUrl("https://play.google.com/store/apps/details?id=com.netflix.mediaclient");
+				.setUrl("https://www.netflix.com/title/" + id);
 
 		responseBuilder.add(simpleResponse);
 		responseBuilder.add(linkOutSuggestion);
