@@ -12,9 +12,9 @@ public class ApiController {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://unogsng.p.rapidapi.com/search?genrelist=" + genreId + "&type=series&start_year=2000&subtitle=korean&audio=korean&offset=0&end_year=2020")
+                    .url("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%253Anew7-!2000%2C2020-!0%2C5-!0%2C10-!" + genreId + "-!Series-!Any-!Any-!gt100-!%7Bdownloadable%7D&t=ns&cl=all&st=adv&ob=Relevance&p=1&sa=and")
                     .get()
-                    .addHeader("x-rapidapi-host", "unogsng.p.rapidapi.com")
+                    .addHeader("x-rapidapi-host", "unogs-unogs-v1.p.rapidapi.com")
                     .addHeader("x-rapidapi-key", "9e89b2aff7msh694128937ca1f7fp1ed93ajsn0832418c9fcd")
                     .build();
 
@@ -29,14 +29,14 @@ public class ApiController {
         return null;
     }
 
-    public String getCountriesList(int countryId) {
+    public String getCountriesList(String countries) {
         try {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://unogsng.p.rapidapi.com/search?type=series&start_year=2000&subtitle=korean&countrylist=" + countryId + "&audio=korean&offset=0&end_year=2020")
+                    .url("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Aexp%3A" + countries + "&t=ns&st=adv&p=1")
                     .get()
-                    .addHeader("x-rapidapi-host", "unogsng.p.rapidapi.com")
+                    .addHeader("x-rapidapi-host", "unogs-unogs-v1.p.rapidapi.com")
                     .addHeader("x-rapidapi-key", "9e89b2aff7msh694128937ca1f7fp1ed93ajsn0832418c9fcd")
                     .build();
 
@@ -51,14 +51,14 @@ public class ApiController {
         return null;
     }
 
-    public void getDetail_genre(int id) {
+    public String getDetail(int id) {
         try {
             OkHttpClient client = new OkHttpClient();
 
-            Request request     = new Request.Builder()
-                    .url("https://unogsng.p.rapidapi.com/title?netflixid=" + id)
+            Request request = new Request.Builder()
+                    .url("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?t=loadvideo&q=" + id)
                     .get()
-                    .addHeader("x-rapidapi-host", "unogsng.p.rapidapi.com")
+                    .addHeader("x-rapidapi-host", "unogs-unogs-v1.p.rapidapi.com")
                     .addHeader("x-rapidapi-key", "9e89b2aff7msh694128937ca1f7fp1ed93ajsn0832418c9fcd")
                     .build();
 
@@ -67,30 +67,10 @@ public class ApiController {
             //출력
             String message = response.body().string();
             System.out.println(message);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.toString());
         }
-    }
-
-    public void getDetail_countries(int id){
-        try {
-            OkHttpClient client = new OkHttpClient();
-
-            Request request     = new Request.Builder()
-                    .url("https://unogsng.p.rapidapi.com/title?netflixid=" + id)
-                    .get()
-                    .addHeader("x-rapidapi-host", "unogsng.p.rapidapi.com")
-                    .addHeader("x-rapidapi-key", "9e89b2aff7msh694128937ca1f7fp1ed93ajsn0832418c9fcd")
-                    .build();
-
-            Response response = client.newCall(request).execute();
-
-            //출력
-            String message = response.body().string();
-            System.out.println(message);
-        } catch (Exception e){
-            System.err.println(e.toString());
-        }
+        return null;
     }
 
 }

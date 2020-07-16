@@ -38,6 +38,7 @@ repositories {
 }
 
 dependencies {
+    compile ("com.google.cloud:google-cloud-translate:1.14.0")
     compile ("com.squareup.okhttp:okhttp:2.5.0")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
