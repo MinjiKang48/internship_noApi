@@ -37,17 +37,19 @@ public class internApp extends DialogflowApp {
         SimpleResponse simpleResponse = new SimpleResponse(); //말풍선
         BasicCard basicCard = new BasicCard();
 
-        simpleResponse.setTextToSpeech("반가워요, 취향에 맞는 드라마를 추천해드릴게요.") //소리
-                .setDisplayText("안녕하세요, 취향에 맞는 드라마를 추천해드릴게요.") //글 표시
+        simpleResponse.setTextToSpeech("반가워요, 어떤 드라마를 좋아하세요?") //소리
+                .setDisplayText("취향에 맞는 드라마를 추천해드릴게요.") //글 표시
         ;
 
         basicCard
                 .setTitle("재밌는 드라마 추천")
                 .setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/home.png")
-                        .setAccessibilityText("home"));
+                        .setAccessibilityText("home"))
+                .setImageDisplayOptions("CROPPED")
+        ;
 
         SimpleResponse simpleResponse2 = new SimpleResponse();
-        simpleResponse2.setTextToSpeech("장르, 배우 혹은 작가 중 하나를 선택해주세요.");
+        simpleResponse2.setTextToSpeech("장르, 배우, 작가 중 하나를 선택해주세요");
 
         suggestions.add("장르");
         suggestions.add("배우");
@@ -58,6 +60,482 @@ public class internApp extends DialogflowApp {
         responseBuilder.add(simpleResponse2);
         responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
 
+        return responseBuilder.build();
+    }
+
+    // you can add a fallback function instead of a function for individual intents
+    @ForIntent("Default Fallback Intent")
+    public ActionResponse fallback(ActionRequest request) {
+        final String WELCOME_INTENT = "Default Welcome Intent";
+        final String CHOICE_INTENT = "choice";
+        final String DESCRIPTION_INTENT = "dramaDescription";
+        // intent contains the name of the intent
+        // you defined in the Intents area of Dialogflow
+        ResponseBuilder responseBuilder = getResponseBuilder(request);
+        SimpleResponse simpleResponse = new SimpleResponse();
+        SelectionList selectionList = new SelectionList();
+        List<String> suggestions = new ArrayList<String>();
+        BasicCard basicCard = new BasicCard();
+        String intent = request.getIntent();
+        switch (intent) {
+            case WELCOME_INTENT:
+                responseBuilder.add("죄송해요. 다시 들려 주실래요?");
+                break;
+            case CHOICE_INTENT:
+                responseBuilder.add("장르, 배우, 작가 중 하나를 선택해주세요.");
+
+                String choice = CommonUtil.makeSafeString(request.getParameter("choice"));
+
+                if (choice.equals("장르")) { //장르 선택 (문제 발생)
+                    simpleResponse
+                            .setTextToSpeech("어떤 장르의 드라마를 불러올까요?");
+                    basicCard
+                            .setImage(
+                                    new Image()
+                                            .setUrl("https://actions.o2o.kr/devsvr1/image/genre.jpg")
+                            )
+                            .setImageDisplayOptions("CROPPED");
+                    suggestions.add("범죄");
+                    suggestions.add("판타지");
+                    suggestions.add("로맨틱코미디");
+                } else if (choice.equals("배우")) { //배우 선택
+                    simpleResponse
+                            .setTextToSpeech("어떤 배우를 좋아하세요?");
+                    basicCard
+                            .setImage(
+                                    new Image()
+                                            .setUrl("https://actions.o2o.kr/devsvr1/image/actor.png")
+                            );
+                    suggestions.add("성동일");
+                    suggestions.add("서현진");
+                    suggestions.add("이지은(아이유)");
+                } else if (choice.equals("작가")) { //작가 선택
+                    simpleResponse
+                            .setTextToSpeech("어떤 작가의 작품을 좋아하시나요?");
+                    basicCard
+                            .setImage(
+                                    new Image()
+                                            .setUrl("https://actions.o2o.kr/devsvr1/image/author.jpg")
+                            );
+                    suggestions.add("김은희");
+                    suggestions.add("김은숙");
+                    suggestions.add("노희경");
+                }
+
+                responseBuilder.add(simpleResponse);
+                responseBuilder.add(basicCard);
+                responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
+                break;
+            case DESCRIPTION_INTENT:
+                responseBuilder.add("목록에 있는 드라마를 선택해주세요");
+
+                final String actor = CommonUtil.makeSafeString(request.getParameter("actor")); //countries : (현재) 미국, 영국, 스페인, 한국
+                final String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre : (현재) 범죄, 판타지, 로맨틱코미디, 10대
+                final String author = CommonUtil.makeSafeString(request.getParameter("author"));
+
+                if (genre.equals("") && author.equals("")) { //actor 선택
+                    switch (actor) {
+                        case "성동일":
+                            selectionList
+                                    .setTitle("성동일 배우의 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("라이브")
+                                                            .setDescription("공권력의 상징 대한민국 경찰. 하지만 이들도 알고 보면 우리와 닮은 이웃일 뿐. 제복의 무게를 견디며 오늘도 정의를 위해 출동이다! 특별하고도 평범한 삶을 위하여.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/라이브.jpg")
+                                                                            .setAccessibilityText("라이브")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("라이브")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("응답하라 1988")
+                                                            .setDescription("1988년, 쌍문동 골목길. 즐거움과 아픔을 함께 나누던 다섯 친구가 있다. 동네에서 함께 자라서 서로의 인생을 함께한 청춘들. 이들을 중심으로 다섯 가족의 따듯한 이야기가 펼쳐진다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/응답하라 1988.jpg")
+                                                                            .setAccessibilityText("응답하라 1988")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("응팔")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("괜찮아, 사랑이야")
+                                                            .setDescription("인기 추리소설 작가이자 라디오 DJ 재열과 대학병원 정신과 교수 의사 해수. 만나기만 하면 티격태격하던 두 사람이 한집에 살게 되면서 변하기 시작한다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/괜찮아, 사랑이야.jpg")
+                                                                            .setAccessibilityText("괜찮아, 사랑이야")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("괜사")
+                                                            )
+                                            )
+                                    );
+                            break;
+                        case "서현진":
+                            selectionList
+                                    .setTitle("서현진 배우의 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("뷰티 인사이드")
+                                                            .setDescription("이번엔 누구? 한 달에 일주일, 다른 사람으로 사는 여자. 이 사람 누구? 열두 달 매일, 다른 사람 얼굴을 못 알아보는 남자. 남모를 속사정이 있는 남녀가 만났다. 서로의 비밀스러운 세계로 발을 디딘 둘의 로맨스는 어떤 모습일까.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/뷰티 인사이드.jpg")
+                                                                            .setAccessibilityText("뷰티 인사이드")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("뷰인사")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("또! 오해영")
+                                                            .setDescription("이름만 달랐어도 인생이 좀 나아졌을까? 학창 시절, 예쁘고 잘난 동명이인때문에 온갖 수난을 겪으며 살아온 여자 오해영. 이제는 만날 일 없다고 생각했지만 웬걸. 다시 나타난 예쁜 그녀가 해영의 삶을 또 한 번 망쳐놓을 줄이야!")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/또! 오해영.jpg")
+                                                                            .setAccessibilityText("또! 오해영")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("오해영")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("식샤를 합시다2")
+                                                            .setDescription("1인 가구의 블루오션을 찾아 세종시에 온 보험왕 대영. 옆집 여자는 알고 보니 그에게 한을 품은 초등학교 동창 수지. 연애고자 수지와 상우를 이어주려고 식샤님이 출동한다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/식샤를 합시다2.jpg")
+                                                                            .setAccessibilityText("식샤를 합니디2")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("식샤")
+                                                            )
+                                            )
+                                    );
+                            break;
+                        case "이지은":
+                        case "아이유":
+                            selectionList
+                                    .setTitle("이지은(아이유) 배우의 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("달의 연인 - 보보경심 려")
+                                                            .setDescription("1,000년을 거슬러 고려 시대로 시간 여행을 하게 된 21세기 여인. 궁중의 암투에 휘말리고 여러 황자들의 사랑을 한몸에 받게 된다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/달의 연인 - 보보경심 려.jpg")
+                                                                            .setAccessibilityText("달의 연인 - 보보경심 려")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("보보경심")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("페르소나")
+                                                            .setDescription("재능과 개성이 넘치는 4명의 감독, 그들이 만든 4편의 작품. 그 속에서 1명의 뮤즈가 4개의 페르소나로 변신한다. 때론 귀엽게 때론 묘하게, 삶과 사랑을 이야기한다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/페르소나.jpg")
+                                                                            .setAccessibilityText("페르소나")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("페르소나")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("나의 아저씨")
+                                                            .setDescription("순리대로 살지만 소년의 순수성과 어른의 지혜를 갖춘 아저씨가 있다. 그런데 이상한 애가 그를 흔든다. 거친 인생을 살아온 무모한 스물한 살 그녀가. 어느것 우정이 움트고, 둘은 서로에게 안식처가 된다. 이 차가운 세상에서.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/나의 아저씨.jpg")
+                                                                            .setAccessibilityText("나의 아저씨")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("나저씨")
+                                                            )
+                                            )
+                                    );
+                            break;
+                    }
+
+                } else if (actor.equals("") && author.equals("")) { //genre 선택
+                    switch (genre) {
+                        case "로맨틱코미디":
+                            selectionList
+                                    .setTitle("로맨틱 코미디 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("사이코지만 괜찮아")
+                                                            .setDescription("소년은 오늘도 악몽에서 깨어났어요. 형이 좋아하는 동화 작가 문영이 강태가 일하는 병원에 낭독회를 하러 온다. 그리고 그녀가 다짜고짜 묻는다. 혹시, 운명을 믿어요?")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/사이코지만 괜찮아.jpg")
+                                                                            .setAccessibilityText("사이코지만 괜찮아")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("사이코")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("멜로가 체질")
+                                                            .setDescription("스타 드라마 작가로 우뚝 설 그날만을 꿈꾸는 여자. 젊은 나이에 다큐멘터리 감독으로 성공한 여자. 일하느라 혼자 아들 키우느라 정신없이 살아가는 여자. 각기 다른 상황에서 일과 연애를 모두 잡으려 애쓰는 서른 살 그녀들의 이야기.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/멜로가 체질.jpg")
+                                                                            .setAccessibilityText("멜로가 체질")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("멜체")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("로맨스는 별책부록")
+                                                            .setDescription("책을 만들었는데 로맨스가 따라왔다? 잘나가는 스타 작가이자 출판계 역사를 새로 쓴 최연소 편집장. 그가 경력단절녀가 돼버린 전직 카피라이터의 인생에 깊이 뛰어든다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/로맨스는 별책부록.jpg")
+                                                                            .setAccessibilityText("로맨스는 별책부록")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("로별")
+                                                            )
+                                            )
+                                    );
+                            break;
+                        case "판타지":
+                            selectionList
+                                    .setTitle("판타지 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("나 홀로 그대")
+                                                            .setDescription("사람이야, 귀신이야? 우연히 홀로그램 인공 지능 '홀로'를 손에 넣게 된 소연. 처음엔 무서웠던 그가 급속도로 편해진다. 내 눈에만 보이는 친구라니, 덜 외롭고 좋다.").setImage(
+                                                            new Image()
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/나 홀로 그대.jpg")
+                                                                    .setAccessibilityText("나 홀로 그대")
+                                                    )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("나홀로")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("알함브라 궁전의 추억")
+                                                            .setDescription("저돌적인 투자회사 대표 진우. 익명의 AR 게임 개발자를 찾던 그는 그라나다까지 온다. 그 곳에서 호스텔을 운영하는 희주. 둘이 만난 순간, 마법같은 이야기가 시작된다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/알함브라 궁전의 추억.jpg")
+                                                                            .setAccessibilityText("알함브라 궁전의 추억")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("알함브라")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("어비스")
+                                                            .setDescription("서로 다른 사고로 이른 나이게 죽은 두 남녀. 그런데 두 사람이 완전히 달라진 외모로 살아난다. 그리고 그들 앞에 닥친 새로운 목표. 자신을 죽인 살인마를 찾아야 한다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/어비스.jpg")
+                                                                            .setAccessibilityText("어비스")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("어비스")
+                                                            )
+                                            )
+                                    );
+                            break;
+                        case "범죄":
+                            selectionList
+                                    .setTitle("범죄 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("보이스")
+                                                            .setDescription("소리에서 단서를 찾는 '보이스 프로파일러'의 세계. 112 신고센터장 구너주와 열혈 형사 진혁이 생사의 갈림길에 선 사람들을 구하기 위해 작은 소리 하나도 놓치지 않는다. 골든타임의 경계를 넘나드는 그들의 활약. 오늘도 출동이다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/보이스.jpg")
+                                                                            .setAccessibilityText("보이스")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("보이스")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("인간수업")
+                                                            .setDescription("눈에 띄지 않게 살자. 학교 안에서는 성실하고 모범적인 오지수. 학교 밖에서는 전혀 다른 얼굴로 살고 있다. 그가 위험한 불법 사업의 중심에 있다. 아무도 모르게.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/인간수업.jpg")
+                                                                            .setAccessibilityText("인간수업")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("인간수업")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("비밀의 숲")
+                                                            .setDescription("공감 능력을 잃은 검사가 살인 사건을 파헤친다. 검사는 열혈 여형사의 도움을 받으며, 수사를 방해하는 부패한 정치 상황에 맞선다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/비밀의 숲.jpg")
+                                                                            .setAccessibilityText("비밀의 숲")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("비숲")
+                                                            )
+                                            )
+                                    );
+                            break;
+                    }
+                } else if (actor.equals("") && genre.equals("")) { //author 선택
+                    switch (author) {
+                        case "김은희":
+                            selectionList
+                                    .setTitle("김은희 작가의 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("시그널")
+                                                            .setDescription("과거와 현재를 잇는 무전기를 통해 대화르 나누는 1989년의 형사와 2015년의 프로파일러. 그리고 두 사람 모두와 연결되어 있는 또 한 명의 형사. 사건을 해결하고 정의를 실현하기 위한 기묘한 공조 수사가 시작된다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/시그널.jpg")
+                                                                            .setAccessibilityText("시그널")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("시그널")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("킹덤")
+                                                            .setDescription("병든 왕을 둘러싸고 흉흉한 소문이 떠돈다. 어둠에 뒤덮인 조선, 기이한 역병에 신음하는 산하. 정체 모를 악에 맞서 백성을 구원할 희망을 오직 세자뿐이다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/킹덤.jpg")
+                                                                            .setAccessibilityText("킹덤")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("킹덤")
+                                                            )
+                                            )
+                                    );
+                            break;
+                        case "김은숙":
+                            selectionList
+                                    .setTitle("김은숙 작가의 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("미스터 션샤인")
+                                                            .setDescription("1871년, 한 소년이 미국 군함을 타고 조선을 떠난다. 세월이 흐르고, 미군 장교가 되어 조국으로 돌아온 남자. 격변하는 역사 속에서, 그는 운명을 뒤흔들 여인을 만난다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/미스터 션샤인.jpg")
+                                                                            .setAccessibilityText("미스터 션샤인")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("미션")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("더 킹 - 영원의 군주")
+                                                            .setDescription("이림에 대한 단서를 찾는 이곤. 만약을 대비해, 영을 두고 은섭을 데리고 돌아간다. 과거 기억으로 혼란스러운 신재, 우편물 발신자가 궁금한 서령. 대체 진실은 무엇일까.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/더 킹 - 영원의 군주.jpg")
+                                                                            .setAccessibilityText("더 킹 - 영원의 군주")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("더킹")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("도깨비")
+                                                            .setDescription("신부를 찾아야 죽을 수 있는 남자. 불멸의 고통에 힘겹던 어느 날, 신부라고 주장하는 여학생이 나타났다. 대책 없이 그를 소환하고 대책 없이 삶에 파고드는 소녀. 정녕 신부를 만난 것이냐. 그럼 이제 소멸할 수 있는 것이냐.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/도깨비.jpg")
+                                                                            .setAccessibilityText("도깨비")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("도깨비")
+                                                            )
+                                            )
+                                    );
+                            break;
+                        case "노희경":
+                            selectionList
+                                    .setTitle("노희경 작가의 드라마 목록")
+                                    .setItems(
+                                            Arrays.asList(
+                                                    new ListSelectListItem()
+                                                            .setTitle("디어 마이 프렌즈")
+                                                            .setDescription("자식들 뒷바리지하랴, 가족들 건사하랴, 어느새 축 지나가 버린 세월. 그렇게 노년에 접어들었지만 인생, 아직 저물지 않았다. '시니어벤저스'와 노희경 표 반짝이는 명대사의 만남, 꼰대들의 유쾌한 인생 찬가가 펼쳐진다.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/디어 마이 프렌즈.jpg")
+                                                                            .setAccessibilityText("디어 마이 프렌즈")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("디마프")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("그 겨울, 바람이 분다")
+                                                            .setDescription("여자, 술, 포커가 인생의 전부인 사기꾼. 시각장애를 가진 재벌가 상속녀에세 접근해 한몫 챙길 심산이다. 하지만 자기를 닮은 그녀의 모습에 미묘한 감정을 느끼고, 계획에서 멀저지기 시작한다. 자신의 목숨이 걸린 일이란 것도 잊은 채.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/그 겨울, 바람이 분다.jpg")
+                                                                            .setAccessibilityText("그 겨울, 바람이 분다")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("그겨울")
+                                                            ),
+                                                    new ListSelectListItem()
+                                                            .setTitle("라이브")
+                                                            .setDescription("공권력의 상징 대한민국 경찰. 하지만 이들도 알고 보면 우리와 닮은 이웃일 뿐. 제복의 무게를 견디며 오늘도 정의를 위해 출동이다! 특별하고도 평범한 삶을 위하여.")
+                                                            .setImage(
+                                                                    new Image()
+                                                                            .setUrl("https://actions.o2o.kr/devsvr1/image/라이브.jpg")
+                                                                            .setAccessibilityText("라이브")
+                                                            )
+                                                            .setOptionInfo(
+                                                                    new OptionInfo()
+                                                                            .setKey("라이브")
+                                                            )
+                                            )
+                                    );
+                            break;
+                    }
+                }
+
+                simpleResponse.setTextToSpeech("보고싶은 드라마를 골라주세요.")
+                        .setDisplayText("어떤 드라마를 보고싶으신가요?");
+
+                responseBuilder.add(selectionList);
+                responseBuilder.add(simpleResponse);
+
+        }
         return responseBuilder.build();
     }
 
@@ -84,29 +562,30 @@ public class internApp extends DialogflowApp {
 
         if (choice.equals("장르")) { //장르 선택 (문제 발생)
             simpleResponse
-                    .setTextToSpeech("어떤 장르의 드라마를 보고싶으신가요?");
+                    .setTextToSpeech("어떤 장르의 드라마를 불러올까요?");
             basicCard
                     .setImage(
                             new Image()
                                     .setUrl("https://actions.o2o.kr/devsvr1/image/genre.jpg")
-                    );
+                    )
+                    .setImageDisplayOptions("CROPPED");
             suggestions.add("범죄");
             suggestions.add("판타지");
             suggestions.add("로맨틱코미디");
         } else if (choice.equals("배우")) { //배우 선택
             simpleResponse
-                    .setTextToSpeech("어떤 배우의 드라마를 보고싶으신가요?");
+                    .setTextToSpeech("어떤 배우를 좋아하세요?");
             basicCard
                     .setImage(
                             new Image()
-                            .setUrl("https://actions.o2o.kr/devsvr1/image/actor.png")
+                                    .setUrl("https://actions.o2o.kr/devsvr1/image/actor.png")
                     );
             suggestions.add("성동일");
             suggestions.add("서현진");
             suggestions.add("이지은(아이유)");
         } else if (choice.equals("작가")) { //작가 선택
             simpleResponse
-                    .setTextToSpeech("어떤 작가의 드라마를 보고싶으신가요?");
+                    .setTextToSpeech("어떤 작가의 작품을 좋아하시나요?");
             basicCard
                     .setImage(
                             new Image()
@@ -120,18 +599,6 @@ public class internApp extends DialogflowApp {
         responseBuilder.add(simpleResponse);
         responseBuilder.add(basicCard);
         responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
-
-        return responseBuilder.build();
-    }
-
-    @ForIntent("choice - fallback")
-    public ActionResponse choiceFallback(ActionRequest request) throws ExecutionException, InterruptedException {
-        ResponseBuilder responseBuilder = new ResponseBuilder();
-        Map<String, Object> data = responseBuilder.getConversationData();
-
-        data.clear();
-
-        responseBuilder.add("장르, 배우 혹은 작가 중 하나를 선택해주세요");
 
         return responseBuilder.build();
     }
@@ -554,23 +1021,11 @@ public class internApp extends DialogflowApp {
             }
         }
 
-        simpleResponse.setTextToSpeech("어떤 드라마를 선택하시겠어요?")
-                .setDisplayText("원하는 드라마를 선택해주세요.");
+        simpleResponse.setTextToSpeech("보고싶은 드라마를 골라주세요.")
+                .setDisplayText("어떤 드라마를 보고싶으신가요?");
 
         responseBuilder.add(selectionList);
         responseBuilder.add(simpleResponse);
-
-        return responseBuilder.build();
-    }
-
-    @ForIntent("chosenDramaList - fallback")
-    public ActionResponse chosenDramaFallback(ActionRequest request) throws ExecutionException, InterruptedException {
-        ResponseBuilder responseBuilder = getResponseBuilder(request);
-        Map<String, Object> data = responseBuilder.getConversationData();
-
-        data.clear();
-
-        responseBuilder.add("3가지 중 하나를 선택해주세요");
 
         return responseBuilder.build();
     }
@@ -600,7 +1055,7 @@ public class internApp extends DialogflowApp {
 
         if (selectedItem.equals("라이브") || drama.equals("라이브")) {
             simpleResponse2
-                    .setTextToSpeech("네, 라이브에 대해 알려드릴게요");
+                    .setTextToSpeech("네, 라이브에 대해 알려드릴게요 " + drama);
             String synopsis = "전국에서 제일 바쁜 \'홍일 지구대\'에 근무하며 일상의 소소한 가치와 정의를 지키기 위해 밤낮없이 바쁘게 뛰며 사건을 해결하는 지구대 경찰들의 이야기";
             String actors = "정유미, 이광수, 성동일";
             basicCard
@@ -622,7 +1077,7 @@ public class internApp extends DialogflowApp {
             netflixId = 80188351;
         } else if (selectedItem.equals("괜사") || drama.equals("괜찮아, 사랑이야")) {
             simpleResponse2
-                    .setTextToSpeech("네, 괜찮아, 사랑이야에 대해 알려드릴게요");
+                    .setTextToSpeech(drama + "선택한 \'괜찮아, 사랑이야\'에요");
             String synopsis = "작은 외상에는 병적으로 집착하며 호들갑을 떨지만 마음의 병은 짊어지고 살아가는 현대인들의 삶과 사랑을 되짚어보는 이야기";
             String actors = "조인성, 공효진, 성동일";
             basicCard
@@ -886,25 +1341,9 @@ public class internApp extends DialogflowApp {
 //						.setAccessibilityText(drama))
 //				.setFormattedText("소개 : " + synopsis + "\n배우 : " + actors);
 
-        simpleResponse
-                .setTextToSpeech("시청하시겠어요?")
-                .setDisplayText("시청하시겠어요?");
-
         responseBuilder.add(simpleResponse2);
         responseBuilder.add(basicCard);
-        responseBuilder.add(simpleResponse);
-
-        return responseBuilder.build();
-    }
-
-    @ForIntent("Drama Description - fallback")
-    public ActionResponse dramaDescriptionFallback(ActionRequest request) throws ExecutionException, InterruptedException {
-        ResponseBuilder responseBuilder = getResponseBuilder(request);
-        Map<String, Object> data = responseBuilder.getConversationData();
-
-        data.clear();
-
-        responseBuilder.add("목록에 있는 드라마만 선택해주세요");
+        responseBuilder.add("시청하시겠어요??");
 
         return responseBuilder.build();
     }
@@ -933,7 +1372,7 @@ public class internApp extends DialogflowApp {
         basicCard
                 .setImage(
                         new Image()
-                        .setUrl("https://actions.o2o.kr/devsvr1/image/netflix.png")
+                                .setUrl("https://actions.o2o.kr/devsvr1/image/netflix.png")
                 );
 
         linkOutSuggestion
