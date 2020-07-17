@@ -199,8 +199,8 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("1988년, 쌍문동 골목길. 즐거움과 아픔을 함께 나누던 다섯 친구가 있다. 동네에서 함께 자라서 서로의 인생을 함께한 청춘들. 이들을 중심으로 다섯 가족의 따듯한 이야기가 펼쳐진다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/응답하라1988.jpg")
-                                                                    .setAccessibilityText("응답하라1988")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/응답하라 1988.jpg")
+                                                                    .setAccessibilityText("응답하라 1988")
                                                     )
                                                     .setOptionInfo(
                                                             new OptionInfo()
@@ -211,7 +211,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("인기 추리소설 작가이자 라디오 DJ 재열과 대학병원 정신과 교수 의사 해수. 만나기만 하면 티격태격하던 두 사람이 한집에 살게 되면서 변하기 시작한다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/괜찮아사랑이야.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/괜찮아, 사랑이야.jpg")
                                                                     .setAccessibilityText("괜찮아, 사랑이야")
                                                     )
                                                     .setOptionInfo(
@@ -231,7 +231,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("이번엔 누구? 한 달에 일주일, 다른 사람으로 사는 여자. 이 사람 누구? 열두 달 매일, 다른 사람 얼굴을 못 알아보는 남자. 남모를 속사정이 있는 남녀가 만났다. 서로의 비밀스러운 세계로 발을 디딘 둘의 로맨스는 어떤 모습일까.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/뷰티인사이드.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/뷰티 인사이드.jpg")
                                                                     .setAccessibilityText("뷰티 인사이드")
                                                     )
                                                     .setOptionInfo(
@@ -239,12 +239,12 @@ public class internApp extends DialogflowApp {
                                                                     .setKey("1")
                                                     ),
                                             new ListSelectListItem()
-                                                    .setTitle("또!오해영")
+                                                    .setTitle("또! 오해영")
                                                     .setDescription("이름만 달랐어도 인생이 좀 나아졌을까? 학창 시절, 예쁘고 잘난 동명이인때문에 온갖 수난을 겪으며 살아온 여자 오해영. 이제는 만날 일 없다고 생각했지만 웬걸. 다시 나타난 예쁜 그녀가 해영의 삶을 또 한 번 망쳐놓을 줄이야!")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/또오해영.jpg")
-                                                                    .setAccessibilityText("또!오해영")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/또! 오해영.jpg")
+                                                                    .setAccessibilityText("또! 오해영")
                                                     )
                                                     .setOptionInfo(
                                                             new OptionInfo()
@@ -255,7 +255,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("1인 가구의 블루오션을 찾아 세종시에 온 보험왕 대영. 옆집 여자는 알고 보니 그에게 한을 품은 초등학교 동창 수지. 연애고자 수지와 상우를 이어주려고 식샤님이 출동한다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/식샤를합시다2.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/식샤를 합시다2.jpg")
                                                                     .setAccessibilityText("식샤를 합니디2")
                                                     )
                                                     .setOptionInfo(
@@ -272,12 +272,12 @@ public class internApp extends DialogflowApp {
                             .setItems(
                                     Arrays.asList(
                                             new ListSelectListItem()
-                                                    .setTitle("달의 연인 : 보보경심 려")
+                                                    .setTitle("달의 연인 - 보보경심 려")
                                                     .setDescription("1,000년을 거슬러 고려 시대로 시간 여행을 하게 된 21세기 여인. 궁중의 암투에 휘말리고 여러 황자들의 사랑을 한몸에 받게 된다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/달의연인_보보경심려.jpg")
-                                                                    .setAccessibilityText("달의 연인 : 보보경심 려")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/달의 연인 - 보보경심 려.jpg")
+                                                                    .setAccessibilityText("달의 연인 - 보보경심 려")
                                                     )
                                                     .setOptionInfo(
                                                             new OptionInfo()
@@ -300,7 +300,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("순리대로 살지만 소년의 순수성과 어른의 지혜를 갖춘 아저씨가 있다. 그런데 이상한 애가 그를 흔든다. 거친 인생을 살아온 무모한 스물한 살 그녀가. 어느것 우정이 움트고, 둘은 서로에게 안식처가 된다. 이 차가운 세상에서.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/나의아저씨.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/나의 아저씨.jpg")
                                                                     .setAccessibilityText("나의 아저씨")
                                                     )
                                                     .setOptionInfo(
@@ -324,7 +324,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("소년은 오늘도 악몽에서 깨어났어요. 형이 좋아하는 동화 작가 문영이 강태가 일하는 병원에 낭독회를 하러 온다. 그리고 그녀가 다짜고짜 묻는다. 혹시, 운명을 믿어요?")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/사이코지만괜찮아.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/사이코지만 괜찮아.jpg")
                                                                     .setAccessibilityText("사이코지만 괜찮아")
                                                     )
                                                     .setOptionInfo(
@@ -336,7 +336,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("스타 드라마 작가로 우뚝 설 그날만을 꿈꾸는 여자. 젊은 나이에 다큐멘터리 감독으로 성공한 여자. 일하느라 혼자 아들 키우느라 정신없이 살아가는 여자. 각기 다른 상황에서 일과 연애를 모두 잡으려 애쓰는 서른 살 그녀들의 이야기.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/멜로가체질.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/멜로가 체질.jpg")
                                                                     .setAccessibilityText("멜로가 체질")
                                                     )
                                                     .setOptionInfo(
@@ -348,7 +348,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("책을 만들었는데 로맨스가 따라왔다? 잘나가는 스타 작가이자 출판계 역사를 새로 쓴 최연소 편집장. 그가 경력단절녀가 돼버린 전직 카피라이터의 인생에 깊이 뛰어든다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/로맨스는별책부록.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/로맨스는 별책부록.jpg")
                                                                     .setAccessibilityText("로맨스는 별책부록")
                                                     )
                                                     .setOptionInfo(
@@ -367,7 +367,7 @@ public class internApp extends DialogflowApp {
                                                     .setTitle("나 홀로 그대")
                                                     .setDescription("사람이야, 귀신이야? 우연히 홀로그램 인공 지능 '홀로'를 손에 넣게 된 소연. 처음엔 무서웠던 그가 급속도로 편해진다. 내 눈에만 보이는 친구라니, 덜 외롭고 좋다.")                                                    .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/나홀로그대.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/나 홀로 그대.jpg")
                                                                     .setAccessibilityText("나 홀로 그대")
                                                     )
                                                     .setOptionInfo(
@@ -379,7 +379,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("저돌적인 투자회사 대표 진우. 익명의 AR 게임 개발자를 찾던 그는 그라나다까지 온다. 그 곳에서 호스텔을 운영하는 희주. 둘이 만난 순간, 마법같은 이야기가 시작된다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/알함브라궁전의추억.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/알함브라 궁전의 추억.jpg")
                                                                     .setAccessibilityText("알함브라 궁전의 추억")
                                                     )
                                                     .setOptionInfo(
@@ -435,7 +435,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("공감 능력을 잃은 검사가 살인 사건을 파헤친다. 검사는 열혈 여형사의 도움을 받으며, 수사를 방해하는 부패한 정치 상황에 맞선다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/비밀의숲.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/비밀의 숲.jpg")
                                                                     .setAccessibilityText("비밀의 숲")
                                                     )
                                                     .setOptionInfo(
@@ -498,12 +498,12 @@ public class internApp extends DialogflowApp {
                                                                     .setKey("1")
                                                     ),
                                             new ListSelectListItem()
-                                                    .setTitle("더 킹 : 영원의 군주")
+                                                    .setTitle("더 킹 - 영원의 군주")
                                                     .setDescription("이림에 대한 단서를 찾는 이곤. 만약을 대비해, 영을 두고 은섭을 데리고 돌아간다. 과거 기억으로 혼란스러운 신재, 우편물 발신자가 궁금한 서령. 대체 진실은 무엇일까.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/더킹_영원의군주.jpg")
-                                                                    .setAccessibilityText("더 킹 : 영원의 군주")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/더 킹 - 영원의 군주.jpg")
+                                                                    .setAccessibilityText("더 킹 - 영원의 군주")
                                                     )
                                                     .setOptionInfo(
                                                             new OptionInfo()
@@ -514,7 +514,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("신부를 찾아야 죽을 수 있는 남자. 불멸의 고통에 힘겹던 어느 날, 신부라고 주장하는 여학생이 나타났다. 대책 없이 그를 소환하고 대책 없이 삶에 파고드는 소녀. 정녕 신부를 만난 것이냐. 그럼 이제 소멸할 수 있는 것이냐.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/도깨미.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/도깨비.jpg")
                                                                     .setAccessibilityText("도깨비")
                                                     )
                                                     .setOptionInfo(
@@ -534,7 +534,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("자식들 뒷바리지하랴, 가족들 건사하랴, 어느새 축 지나가 버린 세월. 그렇게 노년에 접어들었지만 인생, 아직 저물지 않았다. '시니어벤저스'와 노희경 표 반짝이는 명대사의 만남, 꼰대들의 유쾌한 인생 찬가가 펼쳐진다.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/디어마이프렌즈.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/디어 마이 프렌즈.jpg")
                                                                     .setAccessibilityText("디어 마이 프렌즈")
                                                     )
                                                     .setOptionInfo(
@@ -546,7 +546,7 @@ public class internApp extends DialogflowApp {
                                                     .setDescription("여자, 술, 포커가 인생의 전부인 사기꾼. 시각장애를 가진 재벌가 상속녀에세 접근해 한몫 챙길 심산이다. 하지만 자기를 닮은 그녀의 모습에 미묘한 감정을 느끼고, 계획에서 멀저지기 시작한다. 자신의 목숨이 걸린 일이란 것도 잊은 채.")
                                                     .setImage(
                                                             new Image()
-                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/그겨울바람이분다.jpg")
+                                                                    .setUrl("https://actions.o2o.kr/devsvr1/image/그 겨울, 바람이 분다.jpg")
                                                                     .setAccessibilityText("그 겨울, 바람이 분다")
                                                     )
                                                     .setOptionInfo(
@@ -712,7 +712,7 @@ public class internApp extends DialogflowApp {
                 actors = new String[]{"정유미", "이광수", "성동일"};
                 netflixId = 80214523;
                 break;
-            case "응답하라, 1988":
+            case "응답하라 1988":
                 synopsis = "쌍팔년도 쌍문동, 한 골목 다섯 가족의 왁자지껄 코믹 가족극";
                 actors = new String[] {"성동일", "이일화", "라미란"};
                 netflixId = 80188351;
@@ -722,7 +722,7 @@ public class internApp extends DialogflowApp {
                 actors = new String[] {"조인성", "공효진", "성동일"};
                 netflixId = 80031632;
                 break;
-            case "또 오해영":
+            case "또! 오해영":
                 synopsis = "\"모든 것은 오해로 시작되었다!\" '오해영'이라는 동명이인의 두 여자와 그들 사이에서 미래를 보기 시작한 남자 '박도경'이 미필적 고의로 서로의 인생에 얽혀가는 동명 오해 로맨스";
                 actors = new String[] {"에릭", "서현진", "전해빈"};
                 netflixId = 81077044;
@@ -737,7 +737,7 @@ public class internApp extends DialogflowApp {
                 actors = new String[] {"윤두준", "서현진", "권율"};
                 netflixId = 80183878;
                 break;
-            case "달의 연인 : 보보경심 려":
+            case "달의 연인 - 보보경심 려":
                 synopsis = "달그림자가 태양을 검게 물들인 날. 상처 입은 짐승 같은 사내, 4황자 '왕소'와 21세기 여인 '고하진'의 영혼이 미끄러져 들어간 고려 소녀 '해수'가 천 년의 시공간을 초월해 만난다.";
                 actors = new String[] {"이준기", "이지은", "강하늘"};
                 netflixId = 80156759;
@@ -812,7 +812,7 @@ public class internApp extends DialogflowApp {
                 actors = new String[] {"이병헌", "김태리", "유연석"};
                 netflixId = 80991107;
                 break;
-            case "더 킹 : 영원의 군주":
+            case "더 킹 - 영원의 군주":
                 synopsis = "악마에 맞서 차원의 문(門)을 닫으려는 이과(理科)형 대한제국 황제와 누군가의 삶·사람·사랑을 지키려는 문과(文科)형 대한민국 형사의 공조를 통해 차원이 다른 로맨스를 그린 드라마";
                 actors = new String[] {"이민호", "김고은", "우도환"};
                 netflixId = 81260283;
