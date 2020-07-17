@@ -94,7 +94,7 @@ public class internApp extends DialogflowApp {
                     .setTextToSpeech("어떤 작가의 드라마를 보고싶으신가요?");
             suggestions.add("김은희");
             suggestions.add("김은숙");
-            suggestions.add("박지은");
+            suggestions.add("");
         }
 
 		responseBuilder.add(simpleResponse);
