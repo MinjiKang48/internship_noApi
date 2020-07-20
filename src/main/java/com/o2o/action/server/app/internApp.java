@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class internApp extends DialogflowApp {
-	int netflixId;
 
 	/**
 	 * welcome intent
@@ -63,6 +62,37 @@ public class internApp extends DialogflowApp {
 		return responseBuilder.build();
 	}
 
+//	@ForIntent("Default Welcome Intent - fallback")
+//	public ActionResponse defaultWelcomeFallback(ActionRequest request) throws ExecutionException, InterruptedException {
+//		ResponseBuilder responseBuilder = getResponseBuilder(request);
+//		Map<String, Object> data = responseBuilder.getConversationData();
+//
+//		data.clear();
+//
+//		List<String> suggestions = new ArrayList<String>();
+//		BasicCard basicCard = new BasicCard();
+//
+//		basicCard
+//				.setTitle("재밌는 드라마 추천")
+//				.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/home.png")
+//						.setAccessibilityText("home"))
+//				.setImageDisplayOptions("CROPPED")
+//		;
+//
+//		SimpleResponse simpleResponse2 = new SimpleResponse();
+//		simpleResponse2.setTextToSpeech("장르, 배우, 작가 중 하나를 선택해주시겠어요?");
+//
+//		suggestions.add("장르");
+//		suggestions.add("배우");
+//		suggestions.add("작가");
+//
+//		responseBuilder.add(basicCard);
+//		responseBuilder.add(simpleResponse2);
+//		responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
+//
+//		return responseBuilder.build();
+//	}
+
 	/**
 	 * 배우,장르 혹은 작가 중 하나를 선택하면 나오는 또 다른 선택
 	 *
@@ -71,7 +101,7 @@ public class internApp extends DialogflowApp {
 	 * @throws ExecutionException
 	 * @throws InterruptedException
 	 */
-	@ForIntent("choice")
+	@ForIntent("Choice")
 	public ActionResponse choice(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
@@ -82,9 +112,9 @@ public class internApp extends DialogflowApp {
 		SimpleResponse simpleResponse = new SimpleResponse();
 		BasicCard basicCard = new BasicCard();
 
-		String choice = CommonUtil.makeSafeString(request.getParameter("choice"));
+		String choose = CommonUtil.makeSafeString(request.getParameter("choose"));
 
-		if (choice.equals("장르")) { //장르 선택 (문제 발생)
+		if (choose.equals("장르")) { //장르 선택 (문제 발생)
 			simpleResponse
 					.setTextToSpeech("어떤 장르의 드라마를 불러올까요?");
 			basicCard
@@ -96,7 +126,7 @@ public class internApp extends DialogflowApp {
 			suggestions.add("범죄");
 			suggestions.add("판타지");
 			suggestions.add("로맨스");
-		} else if (choice.equals("배우")) { //배우 선택
+		} else if (choose.equals("배우")) { //배우 선택
 			simpleResponse
 					.setTextToSpeech("어떤 배우를 좋아하세요?");
 			basicCard
@@ -107,7 +137,7 @@ public class internApp extends DialogflowApp {
 			suggestions.add("성동일");
 			suggestions.add("서현진");
 			suggestions.add("이지은(아이유)");
-		} else if (choice.equals("작가")) { //작가 선택
+		} else if (choose.equals("작가")) { //작가 선택
 			simpleResponse
 					.setTextToSpeech("어떤 작가의 작품을 좋아하시나요?");
 			basicCard
@@ -576,6 +606,7 @@ public class internApp extends DialogflowApp {
 		String drama = CommonUtil.makeSafeString(request.getParameter("drama"));
 
 		String selectedItem = request.getSelectedOption();
+		String netflixId = "";
 
 		if (selectedItem.equals("1") || drama.equals("라이브")) {
 			simpleResponse2
@@ -587,8 +618,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama1.jpg")
 							.setAccessibilityText("라이브"))
 					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80214523;
-		} else if (selectedItem.equals("2") || drama.equals("응답하라 1988")) {
+			data.put("netflixId","80214523");
+		} else if (selectedItem.equals("2") || drama.equals("응답하라1988")) {
 			simpleResponse2
 					.setTextToSpeech("네, 응답하라 1988에 대해 알려드릴게요");
 			String synopsis = "쌍팔년도 쌍문동, 한 골목 다섯 가족의 왁자지껄 코믹 가족극";
@@ -598,8 +629,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama2.jpg")
 							.setAccessibilityText("응답하라 1988"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80188351;
-		} else if (selectedItem.equals("3") || drama.equals("괜찮아, 사랑이야")) {
+			data.put("netflixId","80188351");
+		} else if (selectedItem.equals("3") || drama.equals("괜찮아사랑이야")) {
 			simpleResponse2
 					.setTextToSpeech(drama + "선택한 \'괜찮아, 사랑이야\'에요");
 			String synopsis = "인기 추리소설 작가이자 라디오 DJ 재열과 대학병원 정신과 교수 의사 해수. 만나기만 하면 티격태격하던 두 사람이 한집에 살게 되면서 변하기 시작한다.";
@@ -609,8 +640,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama3.jpg")
 							.setAccessibilityText("괜찮아, 사랑이야"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80031632;
-		} else if (selectedItem.equals("5") || drama.equals("또! 오해영")) {
+			data.put("netflixId","80031632");
+		} else if (selectedItem.equals("5") || drama.equals("또오해영")) {
 			simpleResponse2
 					.setTextToSpeech("네, 또! 오해영에 대해 알려드릴게요");
 			String synopsis = "이름만 달랐어도 인생이 좀 나아졌을까? 학창 시절, 예쁘고 잘난 동명이인때문에 온갖 수난을 겪으며 살아온 여자 오해영. 이제는 만날 일 없다고 생각했지만 웬걸. 다시 나타난 예쁜 그녀가 해영의 삶을 또 한 번 망쳐놓을 줄이야!";
@@ -620,8 +651,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama5.jpg")
 							.setAccessibilityText("또! 오해영"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81077044;
-		} else if (selectedItem.equals("4") || drama.equals("뷰티 인사이드")) {
+			data.put("netflixId","81077044");
+		} else if (selectedItem.equals("4") || drama.equals("뷰티인사이드")) {
 			simpleResponse2
 					.setTextToSpeech("네, 뷰티 인사이드에 대해 알려드릴게요");
 			String synopsis = "이번엔 누구? 한 달에 일주일, 다른 사람으로 사는 여자. 이 사람 누구? 열두 달 매일, 다른 사람 얼굴을 못 알아보는 남자. 남모를 속사정이 있는 남녀가 만났다. 서로의 비밀스러운 세계로 발을 디딘 둘의 로맨스는 어떤 모습일까.";
@@ -631,8 +662,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama4.jpg")
 							.setAccessibilityText("뷰티 인사이드"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81029990;
-		} else if (selectedItem.equals("6") || drama.equals("식샤를 합시다2")) {
+			data.put("netflixId","81029990");
+		} else if (selectedItem.equals("6") || drama.equals("식샤를합시다2")) {
 			simpleResponse2
 					.setTextToSpeech("네, 식샤를 합시다2에 대해 알려드릴게요");
 			String synopsis = "구대영의 적수가 나타났다! 맛집 블로거 식샤님 '구대영'과 그를 원수로 기억하는 '1일1식 다이어트' 4년차 프리랜서 작가 '백수지', 초식남 공무원 '이상우'. 입맛 다른 '세종 빌라' 1인 가구들의 매콤하게 맛있는 드라마";
@@ -642,8 +673,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama6.jpg")
 							.setAccessibilityText("식샤를 합시다2"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80183878;
-		} else if (selectedItem.equals("7") || drama.equals("달의 연인")) {
+			data.put("netflixId","80183878");
+		} else if (selectedItem.equals("7") || drama.equals("달의연인")) {
 			simpleResponse2
 					.setTextToSpeech("네, 달의 연인 - 보보경심 려에 대해 알려드릴게요");
 			String synopsis = "달그림자가 태양을 검게 물들인 날. 상처 입은 짐승 같은 사내, 4황자 '왕소'와 21세기 여인 '고하진'의 영혼이 미끄러져 들어간 고려 소녀 '해수'가 천 년의 시공간을 초월해 만난다.";
@@ -653,7 +684,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama7.jpg")
 							.setAccessibilityText("달의 연인  - 보보경심 려"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80156759;
+			data.put("netflixId","80156759");
 		} else if (selectedItem.equals("8") || drama.equals("페르소나")) {
 			simpleResponse2
 					.setTextToSpeech("네, 페르소나에 대해 알려드릴게요");
@@ -664,8 +695,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama8.jpg")
 							.setAccessibilityText("페르소나"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81044884;
-		} else if (selectedItem.equals("9") || drama.equals("나의 아저씨")) {
+			data.put("netflixId","81044884");
+		} else if (selectedItem.equals("9") || drama.equals("나의아저씨")) {
 			simpleResponse2
 					.setTextToSpeech("네, 나의 아저씨에 대해 알려드릴게요");
 			String synopsis = "삶의 무게를 버티며 살아가는 아저씨 삼 형제와 거칠게 살아온 한 여성이 서로를 통해 삶을 치유하게 되는 이야기";
@@ -675,8 +706,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama9.jpg")
 							.setAccessibilityText("나의 아저씨"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81267691;
-		} else if (selectedItem.equals("11") || drama.equals("멜로가 체질")) {
+			data.put("netflixId","81267691");
+		} else if (selectedItem.equals("11") || drama.equals("멜로가체질")) {
 			simpleResponse2
 					.setTextToSpeech("네, 멜로가 체질에 대해 알려드릴게요");
 			String synopsis = "스타 드라마 작가로 우뚝 설 그날만을 꿈꾸는 여자. 젊은 나이에 다큐멘터리 감독으로 성공한 여자. 일하느라 혼자 아들 키우느라 정신없이 살아가는 여자. 각기 다른 상황에서 일과 연애를 모두 잡으려 애쓰는 서른 살 그녀들의 이야기.";
@@ -686,8 +717,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama11.jpg")
 							.setAccessibilityText("멜로가 체질"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81211284;
-		} else if (selectedItem.equals("12") || drama.equals("알함브라 궁전의 추억")) {
+			data.put("netflixId","81211284");
+		} else if (selectedItem.equals("12") || drama.equals("알함브라궁전의추억")) {
 			simpleResponse2
 					.setTextToSpeech("네, 알함브라 궁전의 추억에 대해 알려드릴게요");
 			String synopsis = "투자회사 대표인 남자주인공이 비즈니스로 스페인 그라나다에 갔다가 전직 기타리스트였던 여주인공이 운영하는 싸구려 호스텔에 묵으며 두 사람이 기묘한 사건에 휘말리며 펼쳐지는 이야기";
@@ -697,7 +728,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama12.jpg")
 							.setAccessibilityText("알함브라 궁전의 추억"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81004280;
+			data.put("netflixId","81004280");
 		} else if (selectedItem.equals("13") || drama.equals("어비스")) {
 			simpleResponse2
 					.setTextToSpeech("네, 어비스에 대해 알려드릴게요");
@@ -708,7 +739,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama13.jpg")
 							.setAccessibilityText("어비스"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81087762;
+			data.put("netflixId","81087762");
 		} else if (selectedItem.equals("15") || drama.equals("인간수업")) {
 			simpleResponse2
 					.setTextToSpeech("네, 인간수업에 대해 알려드릴게요");
@@ -719,7 +750,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama15.jpg")
 							.setAccessibilityText("인간수업"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80990668;
+			data.put("netflixId","80990668");
 		} else if (selectedItem.equals("16") || drama.equals("보이스")) {
 			simpleResponse2
 					.setTextToSpeech("네, 보이스에 대해 알려드릴게요");
@@ -730,7 +761,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama16.jpg")
 							.setAccessibilityText("보이스"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80187302;
+			data.put("netflixId","80187302");
 		} else if (selectedItem.equals("14") || drama.equals("시그널")) {
 			simpleResponse2
 					.setTextToSpeech("네, 시그널에 대해 알려드릴게요");
@@ -741,7 +772,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama14.jpg")
 							.setAccessibilityText("시그널"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80987077;
+			data.put("netflixId","80987077");
 		} else if (selectedItem.equals("17") || drama.equals("킹덤")) {
 			simpleResponse2
 					.setTextToSpeech("네, 킹덤에 대해 알려드릴게요");
@@ -752,8 +783,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama17.jpg")
 							.setAccessibilityText("킹덤"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80180171;
-		} else if (selectedItem.equals("18") || drama.equals("미스터 션샤인")) {
+			data.put("netflixId","80180171");
+		} else if (selectedItem.equals("18") || drama.equals("미스터션샤인")) {
 			simpleResponse2
 					.setTextToSpeech("네, 미스터 션샤인에 대해 알려드릴게요");
 			String synopsis = "신미양요(1871년) 때 군함에 승선해 미국에 떨어진 한 소년이 미국 군인 신분으로 자신을 버린 조국인 조선으로 돌아와 주둔하며 벌어지는 일을 그린 드라마";
@@ -763,8 +794,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama18.jpg")
 							.setAccessibilityText("미스터 션샤인"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 80991107;
-		} else if (selectedItem.equals("19") || drama.equals("더 킹")) {
+			data.put("netflixId","80991107");
+		} else if (selectedItem.equals("19") || drama.equals("더킹")) {
 			simpleResponse2
 					.setTextToSpeech("네, 더 킹 - 영원의 군주에 대해 알려드릴게요");
 			String synopsis = "악마에 맞서 차원의 문(門)을 닫으려는 이과(理科)형 대한제국 황제와 누군가의 삶·사람·사랑을 지키려는 문과(文科)형 대한민국 형사의 공조를 통해 차원이 다른 로맨스를 그린 드라마";
@@ -774,7 +805,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama19.jpg")
 							.setAccessibilityText("더 킹 - 영원의 군주"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81260283;
+			data.put("netflixId","81260283");
 		} else if (selectedItem.equals("10") || drama.equals("도깨비")) {
 			simpleResponse2
 					.setTextToSpeech("네, 도깨비에 대해 알려드릴게요");
@@ -785,8 +816,8 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama10.jpg")
 							.setAccessibilityText("도깨비"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81012510;
-		} else if (selectedItem.equals("20") || drama.equals("디어 마이 프렌즈")) {
+			data.put("netflixId","81012510");
+		} else if (selectedItem.equals("20") || drama.equals("디어마이프렌즈")) {
 			simpleResponse2
 					.setTextToSpeech("네, 디어 마이 프렌즈에 대해 알려드릴게요");
 			String synopsis = "자식들 뒷바리지하랴, 가족들 건사하랴, 어느새 축 지나가 버린 세월. 그렇게 노년에 접어들었지만 인생, 아직 저물지 않았다. '시니어벤저스'와 노희경 표 반짝이는 명대사의 만남, 꼰대들의 유쾌한 인생 찬가가 펼쳐진다.";
@@ -796,7 +827,7 @@ public class internApp extends DialogflowApp {
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama20.jpg")
 							.setAccessibilityText("디어 마이 프렌즈"))
                     .setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
-			netflixId = 81267633;
+			data.put("netflixId","81267633");
 		}
 
 		responseBuilder.add(simpleResponse2);
@@ -814,12 +845,12 @@ public class internApp extends DialogflowApp {
 	 * @throws ExecutionException
 	 * @throws InterruptedException
 	 */
-	@ForIntent("watch")
+	@ForIntent("Watch")
 	public ActionResponse watch(ActionRequest request) throws ExecutionException, InterruptedException {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		Map<String, Object> data = responseBuilder.getConversationData();
 
-		data.clear();
+		String netflixId = CommonUtil.makeSafeString(data.get("netflixId"));
 
 		SimpleResponse simpleResponse = new SimpleResponse();
 		LinkOutSuggestion linkOutSuggestion = new LinkOutSuggestion();
@@ -860,15 +891,13 @@ public class internApp extends DialogflowApp {
 		data.clear();
 
 		SimpleResponse simpleResponse = new SimpleResponse();
-		SimpleResponse simpleResponse2 = new SimpleResponse();
 		BasicCard basicCard = new BasicCard();
 		List<String> suggestions = new ArrayList<String>();
 
 		simpleResponse
-				.setDisplayText("다른 드라마를 추천해드릴게요.");
-
-		simpleResponse2
-				.setTextToSpeech("장르, 배우 혹은 작가 중 하나를 선택해주세요.");
+				.setTextToSpeech("다른 드라마를 추천해드릴게요. 장르, 배우, 작가 중 하나를 선택해주세요.")
+				.setDisplayText("다른 드라마를 추천해드릴게요.")
+		;
 
 		basicCard
 				.setImage(
@@ -881,7 +910,6 @@ public class internApp extends DialogflowApp {
 		suggestions.add("작가");
 
 		responseBuilder.add(simpleResponse);
-		responseBuilder.add(simpleResponse2);
 		responseBuilder.add(basicCard);
 		responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
 
