@@ -870,7 +870,7 @@ public class internApp extends DialogflowApp {
 
 		responseBuilder.add(simpleResponse);
 		responseBuilder.add(basicCard);
-		responseBuilder.add(linkOutSuggestion);
+		responseBuilder.add(linkOutSuggestion).endConversation();
 
 		return responseBuilder.build();
 	}
