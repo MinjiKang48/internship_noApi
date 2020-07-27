@@ -62,37 +62,6 @@ public class internApp extends DialogflowApp {
 		return responseBuilder.build();
 	}
 
-//	@ForIntent("Default Welcome Intent - fallback")
-//	public ActionResponse defaultWelcomeFallback(ActionRequest request) throws ExecutionException, InterruptedException {
-//		ResponseBuilder responseBuilder = getResponseBuilder(request);
-//		Map<String, Object> data = responseBuilder.getConversationData();
-//
-//		data.clear();
-//
-//		List<String> suggestions = new ArrayList<String>();
-//		BasicCard basicCard = new BasicCard();
-//
-//		basicCard
-//				.setTitle("재밌는 드라마 추천")
-//				.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/home.png")
-//						.setAccessibilityText("home"))
-//				.setImageDisplayOptions("CROPPED")
-//		;
-//
-//		SimpleResponse simpleResponse2 = new SimpleResponse();
-//		simpleResponse2.setTextToSpeech("장르, 배우, 작가 중 하나를 선택해주시겠어요?");
-//
-//		suggestions.add("장르");
-//		suggestions.add("배우");
-//		suggestions.add("작가");
-//
-//		responseBuilder.add(basicCard);
-//		responseBuilder.add(simpleResponse2);
-//		responseBuilder.addSuggestions(suggestions.toArray(new String[suggestions.size()]));
-//
-//		return responseBuilder.build();
-//	}
-
 	/**
 	 * 배우,장르 혹은 작가 중 하나를 선택하면 나오는 또 다른 선택
 	 *
