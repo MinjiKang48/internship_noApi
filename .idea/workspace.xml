@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d182719-722c-45ba-a85a-7244610919bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+    <list default="true" id="ee2a7038-f0dd-407c-8496-c1aa0794ce25" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/o2o/action/server/app/internApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/o2o/action/server/app/internApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/skylife-service.war" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/skylife-service.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/ApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/Drama.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/Drama.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/internApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/o2o/action/server/app/internApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -297,11 +283,29 @@
       <option name="project" value="LOCAL" />
       <updated>1594879531312</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="version 1.5">
+      <created>1596009930482</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1596009930482</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="$git commit -m &quot;version 1.0&quot;" />
@@ -312,25 +316,26 @@
     <MESSAGE value="version 1.3.2" />
     <MESSAGE value="version 1.4" />
     <MESSAGE value="version 1.4.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.4.1" />
+    <MESSAGE value="version 1.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.5" />
   </component>
   <component name="WindowStateProjectService">
     <state x="596" y="103" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1594790880835">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="596" y="103" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1536.824@0.0.1536.824" timestamp="1594790880835" />
-    <state x="673" y="13" key="CommitChangelistDialog2" timestamp="1594890250365">
+    <state x="673" y="13" key="CommitChangelistDialog2" timestamp="1596009928428">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="673" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1594890250365" />
+    <state x="673" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1596009928428" />
     <state width="462" height="466" key="DebuggerActiveHint" timestamp="1594878752741">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="462" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1594878752741" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1596009908013">
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1596010165135">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1596009908013" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1596010165135" />
     <state x="854" y="128" key="FileChooserDialogImpl" timestamp="1594711545764">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -379,10 +384,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="617" y="328" key="VCS.ChangelistChooser/0.0.1536.824@0.0.1536.824" timestamp="1596009821202" />
-    <state x="722" y="153" key="Vcs.Push.Dialog.v2" timestamp="1594879534410">
+    <state x="722" y="153" key="Vcs.Push.Dialog.v2" timestamp="1596009933474">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="722" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1594879534410" />
+    <state x="722" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1596009933474" />
     <state x="437" y="231" key="com.intellij.ide.util.TipDialog" timestamp="1594879704094">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

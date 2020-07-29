@@ -144,8 +144,8 @@ public class internApp extends DialogflowApp {
 		SimpleResponse simpleResponse = new SimpleResponse();
 		SelectionList selectionList = new SelectionList();
 
-		final String actor = CommonUtil.makeSafeString(request.getParameter("actor")); //countries : (현재) 미국, 영국, 스페인, 한국
-		final String genre = CommonUtil.makeSafeString(request.getParameter("genre")); //genre : (현재) 범죄, 판타지, 로맨틱코미디, 10대
+		final String actor = CommonUtil.makeSafeString(request.getParameter("actor"));
+		final String genre = CommonUtil.makeSafeString(request.getParameter("genre"));
 		final String author = CommonUtil.makeSafeString(request.getParameter("author"));
 
 		if (genre.equals("") && author.equals("")) { //actor 선택
@@ -586,7 +586,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("라이브")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama1.jpg")
 							.setAccessibilityText("라이브"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80214523");
 		} else if (selectedItem.equals("2") || drama.equals("응답하라1988")) {
 			simpleResponse2
@@ -597,7 +597,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("응답하라 1988")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama2.jpg")
 							.setAccessibilityText("응답하라 1988"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80188351");
 		} else if (selectedItem.equals("3") || drama.equals("괜찮아사랑이야")) {
 			simpleResponse2
@@ -608,7 +608,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("괜찮아, 사랑이야")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama3.jpg")
 							.setAccessibilityText("괜찮아, 사랑이야"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80031632");
 		} else if (selectedItem.equals("5") || drama.equals("또오해영")) {
 			simpleResponse2
@@ -619,7 +619,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("또! 오해영")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama5.jpg")
 							.setAccessibilityText("또! 오해영"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81077044");
 		} else if (selectedItem.equals("4") || drama.equals("뷰티인사이드")) {
 			simpleResponse2
@@ -630,7 +630,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("뷰티 인사이드")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama4.jpg")
 							.setAccessibilityText("뷰티 인사이드"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81029990");
 		} else if (selectedItem.equals("6") || drama.equals("식샤를합시다2")) {
 			simpleResponse2
@@ -641,7 +641,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("식샤를 합시다2")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama6.jpg")
 							.setAccessibilityText("식샤를 합시다2"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80183878");
 		} else if (selectedItem.equals("7") || drama.equals("달의연인")) {
 			simpleResponse2
@@ -652,7 +652,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("달의 연인 - 보보경심 려")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama7.jpg")
 							.setAccessibilityText("달의 연인  - 보보경심 려"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80156759");
 		} else if (selectedItem.equals("8") || drama.equals("페르소나")) {
 			simpleResponse2
@@ -663,7 +663,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("페르소나")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama8.jpg")
 							.setAccessibilityText("페르소나"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81044884");
 		} else if (selectedItem.equals("9") || drama.equals("나의아저씨")) {
 			simpleResponse2
@@ -674,7 +674,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("나의 아저씨")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama9.jpg")
 							.setAccessibilityText("나의 아저씨"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81267691");
 		} else if (selectedItem.equals("11") || drama.equals("멜로가체질")) {
 			simpleResponse2
@@ -685,7 +685,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("멜로가 체질")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama11.jpg")
 							.setAccessibilityText("멜로가 체질"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81211284");
 		} else if (selectedItem.equals("12") || drama.equals("알함브라궁전의추억")) {
 			simpleResponse2
@@ -696,7 +696,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("알함브라 궁전의 추억")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama12.jpg")
 							.setAccessibilityText("알함브라 궁전의 추억"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81004280");
 		} else if (selectedItem.equals("13") || drama.equals("어비스")) {
 			simpleResponse2
@@ -707,7 +707,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("어비스")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama13.jpg")
 							.setAccessibilityText("어비스"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81087762");
 		} else if (selectedItem.equals("15") || drama.equals("인간수업")) {
 			simpleResponse2
@@ -718,7 +718,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("인간수업")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama15.jpg")
 							.setAccessibilityText("인간수업"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80990668");
 		} else if (selectedItem.equals("16") || drama.equals("보이스")) {
 			simpleResponse2
@@ -729,7 +729,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("보이스")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama16.jpg")
 							.setAccessibilityText("보이스"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80187302");
 		} else if (selectedItem.equals("14") || drama.equals("시그널")) {
 			simpleResponse2
@@ -740,7 +740,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("시그널")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama14.jpg")
 							.setAccessibilityText("시그널"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80987077");
 		} else if (selectedItem.equals("17") || drama.equals("킹덤")) {
 			simpleResponse2
@@ -751,7 +751,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("킹덤")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama17.jpg")
 							.setAccessibilityText("킹덤"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80180171");
 		} else if (selectedItem.equals("18") || drama.equals("미스터션샤인")) {
 			simpleResponse2
@@ -762,7 +762,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("미스터 션샤인")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama18.jpg")
 							.setAccessibilityText("미스터 션샤인"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","80991107");
 		} else if (selectedItem.equals("19") || drama.equals("더킹")) {
 			simpleResponse2
@@ -773,7 +773,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("더 킹 - 영원의 군주")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama19.jpg")
 							.setAccessibilityText("더 킹 - 영원의 군주"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81260283");
 		} else if (selectedItem.equals("10") || drama.equals("도깨비")) {
 			simpleResponse2
@@ -784,7 +784,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("도깨비")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama10.jpg")
 							.setAccessibilityText("도깨비"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81012510");
 		} else if (selectedItem.equals("20") || drama.equals("디어마이프렌즈")) {
 			simpleResponse2
@@ -795,7 +795,7 @@ public class internApp extends DialogflowApp {
 					.setTitle("디어 마이 프렌즈")
 					.setImage(new Image().setUrl("https://actions.o2o.kr/devsvr1/image/drama20.jpg")
 							.setAccessibilityText("디어 마이 프렌즈"))
-					.setFormattedText(" ● 줄거리 : " + synopsis + " ● 배우 : " + actors);
+					.setFormattedText(" ● 줄거리 : " + synopsis + "  \n● 배우 : " + actors);
 			data.put("netflixId","81267633");
 		}
 
